@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Electricity Bill Calculator</title>
+</head>
+<body>
+
+<form method="post" action=" ">
+    Enter the number of units consumed: <input type="text" name="units">
+    <input type="submit" name="submit" value="Calculate">
+</form>
+
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Function to calculate electricity bill
+    function calculateElectricityBill($units) {
+        if ($units <= 50) {
+            $bill = $units * 3.50;
+        } elseif ($units <= 150) {
+            $bill = 50 * 3.50 + ($units - 50) * 4.00;
+        } elseif ($units <= 250) {
+            $bill = 50 * 3.50 + 100 * 4.00 + ($units - 150) * 5.20;
+        } else {
+            $bill = 50 * 3.50 + 100 * 4.00 + 100 * 5.20 + ($units - 250) * 6.50;
+        }
+
+        return $bill;
+    }
+
+    // Get user input
+    $unitsConsumed = isset($_POST['units']) ? intval($_POST['units']) : 0;
+
+    // Calculate electricity bill
+    $totalBill = calculateElectricityBill($unitsConsumed);
+
+    // Display the result
+    echo "The electricity bill for $unitsConsumed units is Rs. $totalBill";
+}
+?>
+
+</body>
+</html>

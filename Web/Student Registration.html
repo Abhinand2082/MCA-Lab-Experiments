@@ -1,0 +1,92 @@
+<html>
+ <head>
+ <title>Student Reg</title>
+  <script src="valid.js"></script>
+ <h1 align="center"><font color="17ABCC">Registration Form</font></h1>
+ <!marquee>
+ <style>
+ table,th,td{
+             border:1px solid black
+             }
+ h2{
+    display:inline block;
+    background-color:red;
+    color:white;
+    }
+ </style>
+ </head>
+ <body>
+  <h2>Form</h2>
+  <form action="submit.php" method="POST"name="myForm" onsubmit=" return validateForm()">
+  <table>
+  <tr>
+  <td>FIRST NAME</td>
+  <td><input type="text" name="fname">(max 30 characters) </input>
+                    <p id="fnameWarning" style="color:red;"></p>
+                </td>
+  </tr>
+  <tr>
+    <td><input type="text" name="lname">(max 30 characters)</input>
+                <p id="lnameWarning" style="color:red;"></p> 
+           /td>
+  </tr>
+  <tr>
+  <td>D.O.B</td>
+  <td><input type="Date"></td>
+  </tr>
+  <tr>
+  <td>GENDER</td>
+  <td>Female<input type="radio" value="Female checked">Male<input type="radio"></td>
+  </tr>
+   <tr>
+  <td>ADDRESS</td>
+  <td><textarea rows=2"></textarea></td>
+  </tr>
+   <tr>
+  <td>CITY</td>
+  <td><input type="text"></td>
+  </tr>
+   <tr>
+  <td>Hobbies</td>
+  <td>Drawing<input type="checkbox"<br>Painting<input type="checkbox"<br>Singing<input type="checkbox"<br></td>
+  </tr>
+  <tr>
+  <td>QUALIFICATIONS</td>
+  <td><table>
+  <tr>
+  <td>Sl no</td>
+  <td>Examination</td>
+  <td>Board</td>
+  <td>Percentage</td>
+  <td>Passing Year</td>
+  </tr>
+  <tr>
+  <td>1</td>
+  <td>Class X</td>
+  <td><input type="text"></td>
+  <td><input type="text"></td>
+  <td><input type="text"></td>
+  </tr>
+  <tr>
+  <td>2</td>
+  <td>Class XII</td>
+  <td><input type="text"></td>
+  <td><input type="text"></td>
+  <td><input type="text"></td>
+  </tr>
+  <tr>
+  <td>3</td>
+  <td>Class UG</td>
+  <td><input type="text"></td>
+  <td><input type="text"></td>
+  <td><input type="text"></td>
+  </tr>
+  </table>
+  </tr>
+  </table>
+  <cenetr><input type="Submit" value="submit">
+  <input type="reset" value="reset"></center>
+  </form>
+ </body>
+</html>     
+
