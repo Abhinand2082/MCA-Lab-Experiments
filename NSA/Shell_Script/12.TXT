@@ -1,0 +1,15 @@
+#!/bin/bash
+calculate_factorial() {
+  local num=$1
+  local factorial=1
+  local i=1
+  while [ $i -le $num ]; do
+    factorial=$((factorial * i))
+    i=$((i + 1))
+  done
+  echo $factorial
+}
+echo "Enter a number:"
+read num
+result=$(calculate_factorial $num)
+echo "Factorial of $num is: $result"

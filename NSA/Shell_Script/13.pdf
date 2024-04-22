@@ -1,0 +1,25 @@
+#!/bin/bash
+generate_fibonacci() 
+{
+  local n=$1
+  local a=0
+  local b=1
+  local i=2
+
+  echo -n "$a, $b"
+
+  while [ $i -lt $n ]; do
+    sum=$((a + b))
+    echo -n ", $sum"
+    a=$b
+    b=$sum
+    i=$((i + 1))
+  done
+
+  echo ""
+}
+
+echo "Enter the value of N for Fibonacci series:"
+read n
+
+generate_fibonacci $n
