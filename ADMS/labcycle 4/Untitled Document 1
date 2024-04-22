@@ -1,0 +1,791 @@
+student@mcarit-HP-285-G3-MT-Business-PC:~$ ssh 23mca25@192.168.20.100
+23mca25@192.168.20.100's password: 
+Permission denied, please try again.
+23mca25@192.168.20.100's password: 
+Permission denied, please try again.
+23mca25@192.168.20.100's password: 
+23mca25@192.168.20.100: Permission denied (publickey,password).
+student@mcarit-HP-285-G3-MT-Business-PC:~$ ssh 23mca25@192.168.20.100
+23mca25@192.168.20.100's password: 
+Welcome to Ubuntu 22.04.4 LTS (GNU/Linux 6.5.0-26-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+Expanded Security Maintenance for Applications is not enabled.
+
+14 updates can be applied immediately.
+To see these additional updates run: apt list --upgradable
+
+Enable ESM Apps to receive additional future security updates.
+See https://ubuntu.com/esm or run: sudo pro status
+
+
+The list of available updates is more than a week old.
+To check for new updates run: sudo apt update
+Failed to connect to https://changelogs.ubuntu.com/meta-release-lts. Check your Internet connection or proxy settings
+
+Last login: Thu Apr  4 13:16:40 2024 from 192.168.20.60
+-bash: /home/2023/23mca25/.profile: Permission denied
+23mca25@Dell-PowerEdge-R520:~$ ls
+ADS  a.out  Java  jithin25  jithin.py  __pycache__  python  samplelist.c  snap
+23mca25@Dell-PowerEdge-R520:~$ mysql -u 23mca25 -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 293
+Server version: 8.0.36-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> DELIMITER //
+mysql> CREATE PROCEDURE FindGreatest(IN num1 INT, IN num2 INT, IN num3 INT, OUT
+    -> greatest INT)
+    -> BEGIN
+    -> DECLARE max_num INT;
+    -> -- Find the maximum among num1 and num2
+    -> IF num1 >= num2 THEN
+    -> SET max_num = num1;
+    -> ELSE
+    -> SET max_num = num2;
+    -> END IF;
+    -> -- Find the maximum among max_num and num3
+    -> IF num3 >= max_num THEN
+    -> SET greatest = num3;
+    -> ELSE
+    -> SET greatest = max_num;
+    -> END IF;
+    -> END //
+ERROR 1046 (3D000): No database selected
+mysql> DELIMITER ;
+mysql> use 23mca25
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> quit
+Bye
+23mca25@Dell-PowerEdge-R520:~$ ls
+ADS  a.out  Java  jithin25  jithin.py  __pycache__  python  samplelist.c  snap
+23mca25@Dell-PowerEdge-R520:~$ mkdir adbmsplsql
+23mca25@Dell-PowerEdge-R520:~$ cd adbmsplsql
+23mca25@Dell-PowerEdge-R520:~/adbmsplsql$ nano p1.sql
+23mca25@Dell-PowerEdge-R520:~/adbmsplsql$ mysql -u 23mca25 -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 309
+Server version: 8.0.36-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use 23mca25;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> source p1.sql
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> call Findgreatest(-1,3,0,@result);
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select @result as greatest_number;
++-----------------+
+| greatest_number |
++-----------------+
+|               3 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> call Findgreatest(10,8,1,@result);
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select @result as greatest_number;
++-----------------+
+| greatest_number |
++-----------------+
+|              10 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> quit
+Bye
+23mca25@Dell-PowerEdge-R520:~/adbmsplsql$ nano p2.sql
+23mca25@Dell-PowerEdge-R520:~/adbmsplsql$ mysql -u 23mca25 -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 320
+Server version: 8.0.36-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> source p2.sql;
+ERROR 1046 (3D000): No database selected
+mysql> use 23mca25
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> source p2.sql;
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> call PrintNumbersInRange(7,20);
++-----------+
+| start_num |
++-----------+
+|         7 |
++-----------+
+1 row in set (0.00 sec)
+
++-----------+
+| start_num |
++-----------+
+|         8 |
++-----------+
+1 row in set (0.00 sec)
+
++-----------+
+| start_num |
++-----------+
+|         9 |
++-----------+
+1 row in set (0.00 sec)
+
++-----------+
+| start_num |
++-----------+
+|        10 |
++-----------+
+1 row in set (0.00 sec)
+
++-----------+
+| start_num |
++-----------+
+|        11 |
++-----------+
+1 row in set (0.00 sec)
+
++-----------+
+| start_num |
++-----------+
+|        12 |
++-----------+
+1 row in set (0.00 sec)
+
++-----------+
+| start_num |
++-----------+
+|        13 |
++-----------+
+1 row in set (0.00 sec)
+
++-----------+
+| start_num |
++-----------+
+|        14 |
++-----------+
+1 row in set (0.00 sec)
+
++-----------+
+| start_num |
++-----------+
+|        15 |
++-----------+
+1 row in set (0.00 sec)
+
++-----------+
+| start_num |
++-----------+
+|        16 |
++-----------+
+1 row in set (0.00 sec)
+
++-----------+
+| start_num |
++-----------+
+|        17 |
++-----------+
+1 row in set (0.00 sec)
+
++-----------+
+| start_num |
++-----------+
+|        18 |
++-----------+
+1 row in set (0.00 sec)
+
++-----------+
+| start_num |
++-----------+
+|        19 |
++-----------+
+1 row in set (0.00 sec)
+
++-----------+
+| start_num |
++-----------+
+|        20 |
++-----------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> quit
+Bye
+23mca25@Dell-PowerEdge-R520:~/adbmsplsql$ nano p3.sql
+23mca25@Dell-PowerEdge-R520:~/adbmsplsql$ mysql -u 23mca25 -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 329
+Server version: 8.0.36-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use 23mca25
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> source p3.sql
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> call SumOfSeries(10);
++---------------+
+| Sum of Series |
++---------------+
+|            55 |
++---------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> quit
+Bye
+23mca25@Dell-PowerEdge-R520:~/adbmsplsql$ nano p4.sql
+23mca25@Dell-PowerEdge-R520:~/adbmsplsql$ mysql -u 23mca25 -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 345
+Server version: 8.0.36-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use 23mca25
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> source p4.sql
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> call DisplayGrade(14);
++-------+
+| Grade |
++-------+
+| F     |
++-------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call DisplayGrade(45);
++-------+
+| Grade |
++-------+
+| F     |
++-------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call DisplayGrade(58);
++-------+
+| Grade |
++-------+
+| F     |
++-------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call DisplayGrade(60);
++-------+
+| Grade |
++-------+
+| D     |
++-------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> quit
+Bye
+23mca25@Dell-PowerEdge-R520:~/adbmsplsql$ nano p5.sql
+23mca25@Dell-PowerEdge-R520:~/adbmsplsql$ mysql -u 23mca25 -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 381
+Server version: 8.0.36-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use 23mca25
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> source p5.sql
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DELIMITTER //
+CREATE PROCEDURE InvertNumber (IN num INT)
+BEGIN
+DECLARE inverted_' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DECLARE remainder INT' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'While num>0 Do
+ SET remainder=num%10' at line 1
+ERROR 1193 (HY000): Unknown system variable 'inverted_num'
+ERROR 1193 (HY000): Unknown system variable 'num'
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'END WHILE' at line 1
+ERROR 1054 (42S22): Unknown column 'inverted_num' in 'field list'
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'END //
+DELIMITER' at line 1
+mysql> quit
+Bye
+23mca25@Dell-PowerEdge-R520:~/adbmsplsql$ nano p5.sql
+23mca25@Dell-PowerEdge-R520:~/adbmsplsql$ mysql -u 23mca25 -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 386
+Server version: 8.0.36-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use 23mca25
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> source p5.sql
+Query OK, 0 rows affected (0.07 sec)
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DELIMITER' at line 1
+mysql> quit
+Bye
+23mca25@Dell-PowerEdge-R520:~/adbmsplsql$ nano p5.sql
+23mca25@Dell-PowerEdge-R520:~/adbmsplsql$ mysql -u 23mca25 -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 388
+Server version: 8.0.36-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use 23mca25
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> source p5.sql
+ERROR 1304 (42000): PROCEDURE InvertNumber already exists
+mysql> quit
+Bye
+23mca25@Dell-PowerEdge-R520:~/adbmsplsql$ nano p5.sql
+23mca25@Dell-PowerEdge-R520:~/adbmsplsql$ mysql -u 23mca25 -p
+Enter password: 
+ERROR 1045 (28000): Access denied for user '23mca25'@'localhost' (using password: YES)
+23mca25@Dell-PowerEdge-R520:~/adbmsplsql$ mysql -u 23mca25 -p
+Enter password: 
+\Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 410
+Server version: 8.0.36-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use 23mca25
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> source p5.sql
+ERROR 1304 (42000): PROCEDURE InvertNumber already exists
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DELIMITER' at line 1
+mysql> quit
+Bye
+23mca25@Dell-PowerEdge-R520:~/adbmsplsql$ nano p5.sql
+23mca25@Dell-PowerEdge-R520:~/adbmsplsql$ nano p4.sql
+23mca25@Dell-PowerEdge-R520:~/adbmsplsql$ nano p5.sql
+23mca25@Dell-PowerEdge-R520:~/adbmsplsql$ mysql -u 23mca25 -p
+Enter password: 
+ERROR 1045 (28000): Access denied for user '23mca25'@'localhost' (using password: YES)
+23mca25@Dell-PowerEdge-R520:~/adbmsplsql$ mysql -u 23mca25 -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 415
+Server version: 8.0.36-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use 23mca25
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> source p5.sql
+ERROR 1304 (42000): PROCEDURE InvertNumber already exists
+mysql> source p4.sql
+ERROR 1304 (42000): PROCEDURE DisplayGrade already exists
+mysql> call InvertNumber(321);
++----------------+
+| Invalid Number |
++----------------+
+|            123 |
++----------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> quit
+Bye
+23mca25@Dell-PowerEdge-R520:~/adbmsplsql$ nano p6.sql
+23mca25@Dell-PowerEdge-R520:~/adbmsplsql$ nano p1.sql
+23mca25@Dell-PowerEdge-R520:~/adbmsplsql$ nano p2.sql
+23mca25@Dell-PowerEdge-R520:~/adbmsplsql$ mysql -u 23mca25 -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 505
+Server version: 8.0.36-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use 23mca25
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> source p6.sql
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> call WithdrawAmount(45,3000);
+ERROR 1146 (42S02): Table '23mca25.accounts' doesn't exist
+mysql> create table accounts(account_id INT,balance decimal(10,2));
+Query OK, 0 rows affected (0.35 sec)
+
+mysql> insert into accounts value(25,14000);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into accounts value(36,17000);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into accounts value(36,24000);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> call WithdrawAmount(45,3000);
+ERROR 1054 (42S22): Unknown column 'id' in 'where clause'
+mysql> ALTER TABLE accounts CHANGE COLUMN account_id id INT;
+Query OK, 0 rows affected (0.18 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from accounts;
++------+----------+
+| id   | balance  |
++------+----------+
+|   25 | 14000.00 |
+|   36 | 17000.00 |
+|   36 | 24000.00 |
++------+----------+
+3 rows in set (0.00 sec)
+
+mysql> DROP PROCEDURE IF EXIST WithdrawAmount;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'EXIST WithdrawAmount' at line 1
+mysql> call WithdrawAmount(25,3000);
+ERROR 1054 (42S22): Unknown column 'ammount_id' in 'where clause'
+mysql> ALTER TABLE accounts CHANGE COLUMN id account_id INT;
+Query OK, 0 rows affected (0.33 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> call WithdrawAmount(25,3000);
+ERROR 1054 (42S22): Unknown column 'id' in 'where clause'
+mysql> call WithdrawAmount(36,3000);
+ERROR 1054 (42S22): Unknown column 'id' in 'where clause'
+mysql> ALTER TABLE accounts CHANGE COLUMN account_id id INT;
+Query OK, 0 rows affected (0.27 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> call WithdrawAmount(36,3000);
+ERROR 1172 (42000): Result consisted of more than one row
+mysql> call WithdrawAmount(25,3000);
+ERROR 1054 (42S22): Unknown column 'ammount_id' in 'where clause'
+mysql> source p6.sql
+Query OK, 0 rows affected (0.07 sec)
+
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> call WithdrawAmount(25,3000);
++----------------------+
+| message              |
++----------------------+
+| Withdraw successfull |
++----------------------+
+1 row in set (0.07 sec)
+
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> source p7.sql
+Query OK, 0 rows affected (0.36 sec)
+
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> call GetCustomerDetails(Hari);
+ERROR 1054 (42S22): Unknown column 'Hari' in 'field list'
+mysql> insert into Customer value('Hari','kottayam',34000);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into Customer value(4,'Hari','kottayam',34000);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> call GetCustomerDetails(Hari);
+ERROR 1054 (42S22): Unknown column 'Hari' in 'field list'
+mysql> select * from Customer;
++-------------+------+----------+----------+
+| customer_id | name | city     | credits  |
++-------------+------+----------+----------+
+|           4 | Hari | kottayam | 34000.00 |
++-------------+------+----------+----------+
+1 row in set (0.00 sec)
+
+mysql> call GetCustomerDetails(Hari);
+ERROR 1054 (42S22): Unknown column 'Hari' in 'field list'
+mysql> call GetCustomerDetails('Hari');
++-------------+------+----------+----------+
+| customer_id | name | city     | credits  |
++-------------+------+----------+----------+
+|           4 | Hari | kottayam | 34000.00 |
++-------------+------+----------+----------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> source p8.sql
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> call DetermineMembership(7000,gold);
+ERROR 1054 (42S22): Unknown column 'gold' in 'field list'
+mysql> call DetermineMembership(7000,'gold');
+ERROR 1414 (42000): OUT or INOUT argument 2 for routine 23mca25.DetermineMembership is not a variable or NEW pseudo-variable in BEFORE trigger
+mysql> call DetermineMembership(7000);
+ERROR 1318 (42000): Incorrect number of arguments for PROCEDURE 23mca25.DetermineMembership; expected 2, got 1
+mysql> call DetermineMembership(7000,out);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'out)' at line 1
+mysql> call DetermineMembership(7000,OUT);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'OUT)' at line 1
+mysql> call DetermineMembership(7000,@memberships_status);
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select @membership_status as status;
++----------------+
+| status         |
++----------------+
+| NULL           |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select @membership_status;
++----------------------------------------+
+| @membership_status                     |
++----------------------------------------+
+| NULL                                   |
++----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> call DetermineMembership(18000,@memberships_status);
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select @membership_status;
++----------------------------------------+
+| @membership_status                     |
++----------------------------------------+
+| NULL                                   |
++----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> call DetermineMembership(1000,@memberships_status);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select @membership_status;
++----------------------------------------+
+| @membership_status                     |
++----------------------------------------+
+| NULL                                   |
++----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> call DetermineMembership(5000,@memberships_status);
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select @membership_status;
++----------------------------------------+
+| @membership_status                     |
++----------------------------------------+
+| NULL                                   |
++----------------------------------------+
+1 row in set (0.01 sec)
+
+mysql> call DetermineMembership(5000,@membership_status);
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select @membership_status;
++--------------------+
+| @membership_status |
++--------------------+
+| Gold               |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> call DetermineMembership(18000,@membership_status);
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select @membership_status;
++--------------------+
+| @membership_status |
++--------------------+
+| Platinum           |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> source p9.sql
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 3
+ERROR 1327 (42000): Undeclared variable: emp_salary
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'RETURN emp_salary' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'END' at line 1
+ERROR 1305 (42000): FUNCTION 23mca25.GetEmployeeSalary does not exist
+mysql> source p9.sql
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 3
+ERROR 1327 (42000): Undeclared variable: emp_salary
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'RETURN emp_salary' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'END' at line 1
+ERROR 1305 (42000): FUNCTION 23mca25.GetEmployeeSalary does not exist
+mysql> source p9.sql;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 3
+ERROR 1327 (42000): Undeclared variable: emp_salary
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'RETURN emp_salary' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'END' at line 1
+ERROR 1305 (42000): FUNCTION 23mca25.GetEmployeeSalary does not exist
+mysql> source p9.sql;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+ERROR 1327 (42000): Undeclared variable: emp_salary
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'RETURN emp_salary' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'END' at line 1
+ERROR 1305 (42000): FUNCTION 23mca25.GetEmployeeSalary does not exist
+mysql> create table employees(employee_id int,salary decimal(10,2));
+Query OK, 0 rows affected (0.29 sec)
+
+mysql> insert into employees value(45,24500);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into employees value(48,8000);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into employees value(68,12000);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from employees;
++-------------+----------+
+| employee_id | salary   |
++-------------+----------+
+|          45 | 24500.00 |
+|          48 |  8000.00 |
+|          68 | 12000.00 |
++-------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> source p9.sql;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+ERROR 1327 (42000): Undeclared variable: emp_salary
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'RETURN emp_salary' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'END' at line 1
+ERROR 1305 (42000): FUNCTION 23mca25.GetEmployeeSalary does not exist
+mysql> alter table employees change column salary emp_salary int;
+Query OK, 3 rows affected (0.87 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> source p9.sql;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+ERROR 1327 (42000): Undeclared variable: emp_salary
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'RETURN emp_salary' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'END' at line 1
+ERROR 1305 (42000): FUNCTION 23mca25.GetEmployeeSalary does not exist
+mysql> select * from employees;
++-------------+------------+
+| employee_id | emp_salary |
++-------------+------------+
+|          45 |      24500 |
+|          48 |       8000 |
+|          68 |      12000 |
++-------------+------------+
+3 rows in set (0.00 sec)
+
+

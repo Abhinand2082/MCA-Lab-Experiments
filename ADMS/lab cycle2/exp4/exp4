@@ -1,0 +1,95 @@
+Database changed
+mysql> create table persons(personid int primary key,name varchar(50) not null,adhar int not null unique,age int check(age>18));
+Query OK, 0 rows affected (0.08 sec)
+
+
+mysql> CREATE TABLE orders(
+    ->     order_id int PRIMARY KEY,
+    ->     order_number int NOT NULL,
+    ->     personId int,
+    ->     FOREIGN KEY (personId) REFERENCES persons(personId)
+    -> );
+Query OK, 0 rows affected (0.15 sec)
+
+mysql> describe persons;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| personid | int         | NO   | PRI | NULL    |       |
+| name     | varchar(50) | NO   |     | NULL    |       |
+| adhar    | int         | NO   | UNI | NULL    |       |
+| age      | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> describe orders;
++--------------+------+------+-----+---------+-------+
+| Field        | Type | Null | Key | Default | Extra |
++--------------+------+------+-----+---------+-------+
+| order_id     | int  | NO   | PRI | NULL    |       |
+| order_number | int  | NO   |     | NULL    |       |
+| personId     | int  | YES  | MUL | NULL    |       |
++--------------+------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table employeee add primary key(emp_no);
+ERROR 1146 (42S02): Table '23mca25.employeee' doesn't exist
+mysql> alter table employees add primary key(emp_no);
+Query OK, 0 rows affected (0.20 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table department add primary key(dept_no);
+Query OK, 0 rows affected (0.16 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+
+Database changed
+mysql> alter table employees add column dept_no varchar(10),add constraint fk_department foreign key(dept_no) references department(dept_no) on delete cascade;
+ERROR 1060 (42S21): Duplicate column name 'dept_no'
+mysql> show tables;
++-------------------+
+| Tables_in_23mca25 |
++-------------------+
+| department        |
+| employees         |
+| manager           |
+| orders            |
+| persons           |
+| tbl_staff         |
++-------------------+
+6 rows in set (0.00 sec)
+
+mysql> alter table tbl_staff add column dept_no varchar(10),add constraint fk_department foreign key(dept_no) references department(dept_no) on delete cascade;
+Query OK, 8 rows affected (0.46 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> desc tbl_staff;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| ID         | char(5)       | YES  |     | NULL    |       |
+| DeptID     | decimal(2,0)  | YES  |     | NULL    |       |
+| Name       | char(15)      | YES  |     | NULL    |       |
+| Design     | char(15)      | YES  |     | NULL    |       |
+| Basic      | decimal(10,2) | YES  |     | NULL    |       |
+| Gender     | char(1)       | YES  |     | NULL    |       |
+| manager_id | int           | YES  |     | NULL    |       |
+| dept_no    | varchar(10)   | YES  | MUL | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+8 rows in set (0.01 sec)
+
+mysql> alter table orders drop primary key;
+Query OK, 0 rows affected (0.27 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc orders;
++--------------+------+------+-----+---------+-------+
+| Field        | Type | Null | Key | Default | Extra |
++--------------+------+------+-----+---------+-------+
+| order_id     | int  | NO   |     | NULL    |       |
+| order_number | int  | NO   |     | NULL    |       |
+| personId     | int  | YES  | MUL | NULL    |       |
++--------------+------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+

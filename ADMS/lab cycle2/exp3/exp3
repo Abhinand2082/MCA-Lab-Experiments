@@ -1,0 +1,199 @@
+mysql> show databases
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| 23mca25            |
+| information_schema |
+| performance_schema |
++--------------------+
+3 rows in set (0.02 sec)
+
+mysql> use 23mca25;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_23mca25 |
++-------------------+
+| manager           |
+| tbl_staff         |
++-------------------+
+2 rows in set (0.01 sec)
+
+mysql> create table student(roll_no int,name varchar(20),dob date,address varchar(20),phone_no varchar(20),blood_grp varchar(5));
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> create table course(course_id int,course_name varchar(20),course_duration int);
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> show tables
+    -> ;
++-------------------+
+| Tables_in_23mca25 |
++-------------------+
+| course            |
+| manager           |
+| student           |
+| tbl_staff         |
++-------------------+
+4 rows in set (0.01 sec)
+
+mysql>   describe student;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| roll_no   | int         | YES  |     | NULL    |       |
+| name      | varchar(20) | YES  |     | NULL    |       |
+| dob       | date        | YES  |     | NULL    |       |
+| address   | varchar(20) | YES  |     | NULL    |       |
+| phone_no  | varchar(20) | YES  |     | NULL    |       |
+| blood_grp | varchar(5)  | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> alter table student add adar_no int;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> describe student;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| roll_no  | int         | YES  |     | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
+| address  | varchar(20) | YES  |     | NULL    |       |
+| phone_no | varchar(20) | YES  |     | NULL    |       |
+| adar_no  | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql> alter table student modify phone_no int;
+Query OK, 0 rows affected (0.31 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> describe student;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| roll_no  | int         | YES  |     | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
+| address  | varchar(20) | YES  |     | NULL    |       |
+| phone_no | int         | YES  |     | NULL    |       |
+| adar_no  | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> drop table course;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> drop table student;)
+Query OK, 0 rows affected (0.05 sec)
+
+
+mysql> show tables;
++-------------------+
+| Tables_in_23mca25 |
++-------------------+
+| manager           |
+| tbl_staff         |
++-------------------+
+2 rows in set (0.00 sec)
+
+mysql> create table employees(emp_no varchar(20),emp_name varchar(20),dob date,address varchar(20),mobile_no int,dept_no varchar(20),salary int);
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> create table department(dept_no varchar(20),dept_name varchar(20),location varchar(20));
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> show tables;
++-------------------+
+| Tables_in_23mca25 |
++-------------------+
+| department        |
+| employees         |
+| manager           |
+| tbl_staff         |
++-------------------+
+4 rows in set (0.00 sec)
+
+mysql> describe employees;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| emp_no    | varchar(20) | YES  |     | NULL    |       |
+| emp_name  | varchar(20) | YES  |     | NULL    |       |
+| dob       | date        | YES  |     | NULL    |       |
+| address   | varchar(20) | YES  |     | NULL    |       |
+| mobile_no | int         | YES  |     | NULL    |       |
+| dept_no   | varchar(20) | YES  |     | NULL    |       |
+| salary    | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> describe department;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| dept_no   | varchar(20) | YES  |     | NULL    |       |
+| dept_name | varchar(20) | YES  |     | NULL    |       |
+| location  | varchar(20) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+
+mysql> show tables;
++-------------------+
+| Tables_in_23mca25 |
++-------------------+
+| manager           |
+| tbl_staff         |
++-------------------+
+2 rows in set (0.00 sec)
+
+mysql> create table employees(emp_no varchar(20),emp_name varchar(20),dob date,address varchar(20),mobile_no int,dept_no varchar(20),salary int);
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> create table department(dept_no varchar(20),dept_name varchar(20),location varchar(20));
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> show tables;
++-------------------+
+| Tables_in_23mca25 |
++-------------------+
+| department        |
+| employees         |
+| manager           |
+| tbl_staff         |
++-------------------+
+4 rows in set (0.00 sec)
+
+mysql> describe employees;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| emp_no    | varchar(20) | YES  |     | NULL    |       |
+| emp_name  | varchar(20) | YES  |     | NULL    |       |
+| dob       | date        | YES  |     | NULL    |       |
+| address   | varchar(20) | YES  |     | NULL    |       |
+| mobile_no | int         | YES  |     | NULL    |       |
+| dept_no   | varchar(20) | YES  |     | NULL    |       |
+| salary    | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> describe department;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| dept_no   | varchar(20) | YES  |     | NULL    |       |
+| dept_name | varchar(20) | YES  |     | NULL    |       |
+| location  | varchar(20) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+

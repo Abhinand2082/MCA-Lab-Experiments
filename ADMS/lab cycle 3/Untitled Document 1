@@ -1,0 +1,1305 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| 23mca25            |
+| information_schema |
+| performance_schema |
++--------------------+
+3 rows in set (0.00 sec)
+
+mysql> use 23mca25;
+Database changed
+mysql> show tables;
+Empty set (0.01 sec)
+
+mysql> show tables;
+Empty set (0.00 sec)
+
+mysql> create table tbl_staff(ID char(5),DeptID numeric(2),Name char(15),Design char(15),Basic numeric(10,2),Gender char(1));
+Query OK, 0 rows affected (0.66 sec)
+
+mysql> insert into tbl_staff value(101,1,'ram','typist',2000,'m'),(102,2,'arun','analyst',6000,'m'),(121,1,'Ruby','typist',2010,'f'),(156,3,'mary','manager',4500,'f'),(123,2,'mridula','analyst',6000,'f'),(114,4,'menon','clerk',1500,'m'),(115,4,'tim','clerk',1500,'m'),(127,2,'krian','manager',4000,'m');
+Query OK, 8 rows affected (0.08 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> show tables;
++-------------------+
+| Tables_in_23mca25 |
++-------------------+
+| tbl_staff         |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from tbl_staff;
++------+--------+---------+---------+---------+--------+
+| ID   | DeptID | Name    | Design  | Basic   | Gender |
++------+--------+---------+---------+---------+--------+
+| 101  |      1 | ram     | typist  | 2000.00 | m      |
+| 102  |      2 | arun    | analyst | 6000.00 | m      |
+| 121  |      1 | Ruby    | typist  | 2010.00 | f      |
+| 156  |      3 | mary    | manager | 4500.00 | f      |
+| 123  |      2 | mridula | analyst | 6000.00 | f      |
+| 114  |      4 | menon   | clerk   | 1500.00 | m      |
+| 115  |      4 | tim     | clerk   | 1500.00 | m      |
+| 127  |      2 | krian   | manager | 4000.00 | m      |
++------+--------+---------+---------+---------+--------+
+8 rows in set (0.00 sec)
+
+mysql> select distinct Design from tbl_staff;
++---------+
+| Design  |
++---------+
+| typist  |
+| analyst |
+| manager |
+| clerk   |
++---------+
+4 rows in set (0.02 sec)
+
+mysql> select count(distinct Design) from tbl_staff;
++------------------------+
+| count(distinct Design) |
++------------------------+
+|                      4 |
++------------------------+
+1 row in set (0.01 sec)
+
+mysql> select max(salary) from tbl_staff where gender="f";
+ERROR 1054 (42S22): Unknown column 'salary' in 'field list'
+mysql> select max(Basic) from tbl_staff where gender="f";
++------------+
+| max(Basic) |
++------------+
+|    6000.00 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select * from tbl_staff where gender="f" and Design="typist";
++------+--------+------+--------+---------+--------+
+| ID   | DeptID | Name | Design | Basic   | Gender |
++------+--------+------+--------+---------+--------+
+| 121  |      1 | Ruby | typist | 2010.00 | f      |
++------+--------+------+--------+---------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from tbl_staff where gender="m" and Design="clerk" and salary>3000;
+ERROR 1054 (42S22): Unknown column 'salary' in 'where clause'
+mysql> select * from tbl_staff where gender="m" and Design="clerk" and basic>3000;
+Empty set (0.00 sec)
+
+mysql> select * from tbl_staff where gender="m" and Design="clerk" and Basic>3000;
+Empty set (0.00 sec)
+
+mysql> insert into tbl_staff value(108,1,'dinkan','clerk',3200,'m');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from tbl_staff;
++------+--------+---------+---------+---------+--------+
+| ID   | DeptID | Name    | Design  | Basic   | Gender |
++------+--------+---------+---------+---------+--------+
+| 101  |      1 | ram     | typist  | 2000.00 | m      |
+| 102  |      2 | arun    | analyst | 6000.00 | m      |
+| 121  |      1 | Ruby    | typist  | 2010.00 | f      |
+| 156  |      3 | mary    | manager | 4500.00 | f      |
+| 123  |      2 | mridula | analyst | 6000.00 | f      |
+| 114  |      4 | menon   | clerk   | 1500.00 | m      |
+| 115  |      4 | tim     | clerk   | 1500.00 | m      |
+| 127  |      2 | krian   | manager | 4000.00 | m      |
+| 108  |      1 | dinkan  | clerk   | 3200.00 | m      |
++------+--------+---------+---------+---------+--------+
+9 rows in set (0.00 sec)
+
+mysql> select * from tbl_staff where gender="m" and Design="clerk" and Basic>3000;
++------+--------+--------+--------+---------+--------+
+| ID   | DeptID | Name   | Design | Basic   | Gender |
++------+--------+--------+--------+---------+--------+
+| 108  |      1 | dinkan | clerk  | 3200.00 | m      |
++------+--------+--------+--------+---------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from tbl_staff where DeptId=2 and Design='manager' or Design='analyst';
++------+--------+---------+---------+---------+--------+
+| ID   | DeptID | Name    | Design  | Basic   | Gender |
++------+--------+---------+---------+---------+--------+
+| 102  |      2 | arun    | analyst | 6000.00 | m      |
+| 123  |      2 | mridula | analyst | 6000.00 | f      |
+| 127  |      2 | krian   | manager | 4000.00 | m      |
++------+--------+---------+---------+---------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select Design,Basic from tbl_staff where Name="Ruby";
++--------+---------+
+| Design | Basic   |
++--------+---------+
+| typist | 2010.00 |
++--------+---------+
+1 row in set (0.00 sec)
+
+mysql> alter table tbl_staff add joining_date date;
+Query OK, 0 rows affected (0.23 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> update tbl_staff set joining_date="2023-05-29" where id=101;
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from tbl_staff order by joining_date;
++------+--------+---------+---------+---------+--------+--------------+
+| ID   | DeptID | Name    | Design  | Basic   | Gender | joining_date |
++------+--------+---------+---------+---------+--------+--------------+
+| 102  |      2 | arun    | analyst | 6000.00 | m      | NULL         |
+| 121  |      1 | Ruby    | typist  | 2010.00 | f      | NULL         |
+| 156  |      3 | mary    | manager | 4500.00 | f      | NULL         |
+| 123  |      2 | mridula | analyst | 6000.00 | f      | NULL         |
+| 114  |      4 | menon   | clerk   | 1500.00 | m      | NULL         |
+| 115  |      4 | tim     | clerk   | 1500.00 | m      | NULL         |
+| 127  |      2 | krian   | manager | 4000.00 | m      | NULL         |
+| 108  |      1 | dinkan  | clerk   | 3200.00 | m      | NULL         |
+| 101  |      1 | ram     | typist  | 2000.00 | m      | 2023-05-29   |
++------+--------+---------+---------+---------+--------+--------------+
+9 rows in set (0.00 sec)
+
+mysql> update tbl_staff set joining_date="2023-04-30" where id=102;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from tbl_staff order by joining_date;
++------+--------+---------+---------+---------+--------+--------------+
+| ID   | DeptID | Name    | Design  | Basic   | Gender | joining_date |
++------+--------+---------+---------+---------+--------+--------------+
+| 121  |      1 | Ruby    | typist  | 2010.00 | f      | NULL         |
+| 156  |      3 | mary    | manager | 4500.00 | f      | NULL         |
+| 123  |      2 | mridula | analyst | 6000.00 | f      | NULL         |
+| 114  |      4 | menon   | clerk   | 1500.00 | m      | NULL         |
+| 115  |      4 | tim     | clerk   | 1500.00 | m      | NULL         |
+| 127  |      2 | krian   | manager | 4000.00 | m      | NULL         |
+| 108  |      1 | dinkan  | clerk   | 3200.00 | m      | NULL         |
+| 102  |      2 | arun    | analyst | 6000.00 | m      | 2023-04-30   |
+| 101  |      1 | ram     | typist  | 2000.00 | m      | 2023-05-29   |
++------+--------+---------+---------+---------+--------+--------------+
+9 rows in set (0.00 sec)
+
+mysql> select * from tbl_staff order by Basic desc;
++------+--------+---------+---------+---------+--------+--------------+
+| ID   | DeptID | Name    | Design  | Basic   | Gender | joining_date |
++------+--------+---------+---------+---------+--------+--------------+
+| 102  |      2 | arun    | analyst | 6000.00 | m      | 2023-04-30   |
+| 123  |      2 | mridula | analyst | 6000.00 | f      | NULL         |
+| 156  |      3 | mary    | manager | 4500.00 | f      | NULL         |
+| 127  |      2 | krian   | manager | 4000.00 | m      | NULL         |
+| 108  |      1 | dinkan  | clerk   | 3200.00 | m      | NULL         |
+| 121  |      1 | Ruby    | typist  | 2010.00 | f      | NULL         |
+| 101  |      1 | ram     | typist  | 2000.00 | m      | 2023-05-29   |
+| 114  |      4 | menon   | clerk   | 1500.00 | m      | NULL         |
+| 115  |      4 | tim     | clerk   | 1500.00 | m      | NULL         |
++------+--------+---------+---------+---------+--------+--------------+
+9 rows in set (0.00 sec)
+
+mysql> create table department(deptid int primary key,dname char(15));
+Query OK, 0 rows affected (0.31 sec)
+
+mysql> alter table tbl_staff add constraints fk_dptid foriegn key(DeptID) references department(deptid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'fk_dptid foriegn key(DeptID) references department(deptid)' at line 1
+mysql> alter table tbl_staff add constraints fk_dptid foriegn key(DeptID)references department(deptid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'fk_dptid foriegn key(DeptID)references department(deptid)' at line 1
+mysql> insert into department deptid,dname values(1,'design'),(2,'coding'),(3,'testing'),(4,'research')(5,'maintain');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'deptid,dname values(1,'design'),(2,'coding'),(3,'testing'),(4,'research')(5,'mai' at line 1
+mysql> insert into department (deptid,dname) values(1,'design'),(2,'coding'),(3,'testing'),(4,'research')(5,'maintain');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(5,'maintain')' at line 1
+mysql> insert into department values(1,'design'),(2,'coding'),(3,'testing'),(4,'research')(5,'maintain');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(5,'maintain')' at line 1
+mysql> insert into department values(1,'design'),(2,'coding'),(3,'testing'),(4,'research'),(5,'maintain');
+Query OK, 5 rows affected (0.07 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select*from department;
++--------+----------+
+| deptid | dname    |
++--------+----------+
+|      1 | design   |
+|      2 | coding   |
+|      3 | testing  |
+|      4 | research |
+|      5 | maintain |
++--------+----------+
+5 rows in set (0.00 sec)
+
+mysql> alter table tbl_staff add constraints fk_dptid foriegn key(DeptID)references department(deptid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'fk_dptid foriegn key(DeptID)references department(deptid)' at line 1
+mysql> alter table tbl_staff add Constraints fk_dptid foriegn key(DeptID)references department(deptid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'fk_dptid foriegn key(DeptID)references department(deptid)' at line 1
+mysql> alter table tbl_staff add constraint fk_dptid foriegn key(DeptID)references department(deptid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'foriegn key(DeptID)references department(deptid)' at line 1
+mysql> alter table tbl_staff add constraint fk_dptid FOREIGN KEY(DeptID)references department(deptid);
+ERROR 3780 (HY000): Referencing column 'DeptID' and referenced column 'deptid' in foreign key constraint 'fk_dptid' are incompatible.
+mysql> alter table tbl_staff
+    -> add constraint fk_deptid
+    -> foreign key (DeptID)
+    -> references department(deptid);
+ERROR 3780 (HY000): Referencing column 'DeptID' and referenced column 'deptid' in foreign key constraint 'fk_deptid' are incompatible.
+mysql> alter table tbl_staff modify DeptID int;
+Query OK, 9 rows affected (0.68 sec)
+Records: 9  Duplicates: 0  Warnings: 0
+
+mysql> alter table tbl_staff add constraint fk_deptid foreign key (DeptID) references department(deptid);
+Query OK, 9 rows affected (1.46 sec)
+Records: 9  Duplicates: 0  Warnings: 0
+
+mysql> select Name as Emp_name,dname as Dept_name from tbl_staff join department on tbl_staff deptid=department.deptid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'deptid=department.deptid' at line 1
+mysql> select Name as tbl_staff.Name,department.dname as Dept_name from tbl_staff join department on tbl_staff deptid=department.deptid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.Name,department.dname as Dept_name from tbl_staff join department on tbl_staff ' at line 1
+mysql> select Name as tbl_staff.Name,department.dname as Dept_name from tbl_staff join department on tbl_staff.DeptID=department.deptid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.Name,department.dname as Dept_name from tbl_staff join department on tbl_staff.' at line 1
+mysql> select tbl_staff.Name as Emp_Name,department.dname as Dept_name from tbl_staff join department on tbl_staff.DeptID=department.deptid;
++----------+-----------+
+| Emp_Name | Dept_name |
++----------+-----------+
+| ram      | design    |
+| Ruby     | design    |
+| dinkan   | design    |
+| arun     | coding    |
+| mridula  | coding    |
+| krian    | coding    |
+| mary     | testing   |
+| menon    | research  |
+| tim      | research  |
++----------+-----------+
+9 rows in set (0.00 sec)
+
+mysql> select department.dname as Dpt_name from tbl_staff join department on tbl_staff.DeptID=department.deptid where tbl_staff.Name="arun";
++----------+
+| Dpt_name |
++----------+
+| coding   |
++----------+
+1 row in set (0.01 sec)
+
+mysql> select tbl_staff.Basic as Salary from tbl_staff join department on tbl_staff.DeptID=department.deptid where department.dname="design";
++---------+
+| Salary  |
++---------+
+| 2000.00 |
+| 2010.00 |
+| 3200.00 |
++---------+
+3 rows in set (0.01 sec)
+
+mysql> select * from tbl_staff as e,department as d where e.DeptId=d.deptid and e.Design="typist" and d.dname="design";
++------+--------+------+--------+---------+--------+--------------+--------+--------+
+| ID   | DeptID | Name | Design | Basic   | Gender | joining_date | deptid | dname  |
++------+--------+------+--------+---------+--------+--------------+--------+--------+
+| 101  |      1 | ram  | typist | 2000.00 | m      | 2023-05-29   |      1 | design |
+| 121  |      1 | Ruby | typist | 2010.00 | f      | NULL         |      1 | design |
++------+--------+------+--------+---------+--------+--------------+--------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select e.Basic from tbl_staff as e natural join department as d where d.name="research";
+ERROR 1054 (42S22): Unknown column 'd.name' in 'where clause'
+mysql> select tbl_staff.Basic from tbl_staff join department on tbl_staff.Deptid=department.deptid where d.name="research";
+ERROR 1054 (42S22): Unknown column 'd.name' in 'where clause'
+mysql> select tbl_staff.Basic from tbl_staff join department on tbl_staff.Deptid=department.deptid where d.dname="research";
+ERROR 1054 (42S22): Unknown column 'd.dname' in 'where clause'
+mysql> select tbl_staff.Basic from tbl_staff join department on tbl_staff.Deptid=department.deptid where department.dname="research";
++---------+
+| Basic   |
++---------+
+| 1500.00 |
+| 1500.00 |
++---------+
+2 rows in set (0.00 sec)
+
+mysql> 
+mysql> select * from tbl_staff as e,department as d where e.DeptId=d.deptid and e.Design="typist" and d.dname="design";
++------+--------+------+--------+---------+--------+--------------+--------+--------+
+| ID   | DeptID | Name | Design | Basic   | Gender | joining_date | deptid | dname  |
++------+--------+------+--------+---------+--------+--------------+--------+--------+
+| 101  |      1 | ram  | typist | 2000.00 | m      | 2023-05-29   |      1 | design |
+| 121  |      1 | Ruby | typist | 2010.00 | f      | NULL         |      1 | design |
++------+--------+------+--------+---------+--------+--------------+--------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select e.Basic from tbl_staff as e natural join department as d where d.name="research";
+ERROR 1054 (42S22): Unknown column 'd.name' in 'where clause'
+mysql> select tbl_staff.Basic from tbl_staff join department on tbl_staff.Deptid=department.deptid where d.name="research";
+ERROR 1054 (42S22): Unknown column 'd.name' in 'where clause'
+mysql> select tbl_staff.Basic from tbl_staff join department on tbl_staff.Deptid=department.deptid where d.dname="research";
+ERROR 1054 (42S22): Unknown column 'd.dname' in 'where clause'
+mysql> select tbl_staff.Basic from tbl_staff join department on tbl_staff.Deptid=department.deptid where department.dname="research";
++---------+
+| Basic   |
++---------+
+| 1500.00 |
+| 1500.00 |
++---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from tbl_staff join department on tbl_staff.DeptID=department.deptid where tbl_staff.gender="f" and department.dname="testing";
++------+--------+------+---------+---------+--------+--------------+--------+---------+
+| ID   | DeptID | Name | Design  | Basic   | Gender | joining_date | deptid | dname   |
++------+--------+------+---------+---------+--------+--------------+--------+---------+
+| 156  |      3 | mary | manager | 4500.00 | f      | NULL         |      3 | testing |
++------+--------+------+---------+---------+--------+--------------+--------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from tbl_staff as e join department as d where d.dname not in ('coding','testing');
++------+--------+---------+---------+---------+--------+--------------+--------+----------+
+| ID   | DeptID | Name    | Design  | Basic   | Gender | joining_date | deptid | dname    |
++------+--------+---------+---------+---------+--------+--------------+--------+----------+
+| 101  |      1 | ram     | typist  | 2000.00 | m      | 2023-05-29   |      5 | maintain |
+| 101  |      1 | ram     | typist  | 2000.00 | m      | 2023-05-29   |      4 | research |
+| 101  |      1 | ram     | typist  | 2000.00 | m      | 2023-05-29   |      1 | design   |
+| 102  |      2 | arun    | analyst | 6000.00 | m      | 2023-04-30   |      5 | maintain |
+| 102  |      2 | arun    | analyst | 6000.00 | m      | 2023-04-30   |      4 | research |
+| 102  |      2 | arun    | analyst | 6000.00 | m      | 2023-04-30   |      1 | design   |
+| 121  |      1 | Ruby    | typist  | 2010.00 | f      | NULL         |      5 | maintain |
+| 121  |      1 | Ruby    | typist  | 2010.00 | f      | NULL         |      4 | research |
+| 121  |      1 | Ruby    | typist  | 2010.00 | f      | NULL         |      1 | design   |
+| 156  |      3 | mary    | manager | 4500.00 | f      | NULL         |      5 | maintain |
+| 156  |      3 | mary    | manager | 4500.00 | f      | NULL         |      4 | research |
+| 156  |      3 | mary    | manager | 4500.00 | f      | NULL         |      1 | design   |
+| 123  |      2 | mridula | analyst | 6000.00 | f      | NULL         |      5 | maintain |
+| 123  |      2 | mridula | analyst | 6000.00 | f      | NULL         |      4 | research |
+| 123  |      2 | mridula | analyst | 6000.00 | f      | NULL         |      1 | design   |
+| 114  |      4 | menon   | clerk   | 1500.00 | m      | NULL         |      5 | maintain |
+| 114  |      4 | menon   | clerk   | 1500.00 | m      | NULL         |      4 | research |
+| 114  |      4 | menon   | clerk   | 1500.00 | m      | NULL         |      1 | design   |
+| 115  |      4 | tim     | clerk   | 1500.00 | m      | NULL         |      5 | maintain |
+| 115  |      4 | tim     | clerk   | 1500.00 | m      | NULL         |      4 | research |
+| 115  |      4 | tim     | clerk   | 1500.00 | m      | NULL         |      1 | design   |
+| 127  |      2 | krian   | manager | 4000.00 | m      | NULL         |      5 | maintain |
+| 127  |      2 | krian   | manager | 4000.00 | m      | NULL         |      4 | research |
+| 127  |      2 | krian   | manager | 4000.00 | m      | NULL         |      1 | design   |
+| 108  |      1 | dinkan  | clerk   | 3200.00 | m      | NULL         |      5 | maintain |
+| 108  |      1 | dinkan  | clerk   | 3200.00 | m      | NULL         |      4 | research |
+| 108  |      1 | dinkan  | clerk   | 3200.00 | m      | NULL         |      1 | design   |
++------+--------+---------+---------+---------+--------+--------------+--------+----------+
+27 rows in set (0.00 sec)
+
+mysql> select * from tbl_staff as e left join department as d where d.dname not in ('coding','testing');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where d.dname not in ('coding','testing')' at line 1
+mysql> select * from tbl_staff as e left join department as d on e.DeptID=d.deptid where d.dname not in ('coding','testing');
++------+--------+--------+--------+---------+--------+--------------+--------+----------+
+| ID   | DeptID | Name   | Design | Basic   | Gender | joining_date | deptid | dname    |
++------+--------+--------+--------+---------+--------+--------------+--------+----------+
+| 101  |      1 | ram    | typist | 2000.00 | m      | 2023-05-29   |      1 | design   |
+| 121  |      1 | Ruby   | typist | 2010.00 | f      | NULL         |      1 | design   |
+| 108  |      1 | dinkan | clerk  | 3200.00 | m      | NULL         |      1 | design   |
+| 114  |      4 | menon  | clerk  | 1500.00 | m      | NULL         |      4 | research |
+| 115  |      4 | tim    | clerk  | 1500.00 | m      | NULL         |      4 | research |
++------+--------+--------+--------+---------+--------+--------------+--------+----------+
+5 rows in set (0.01 sec)
+
+
+
+mysql> SELECT d.dname FROM department d JOIN tbl_staff e ON d.deptid = e.deptid GROUP BY d.dname HAVING max(e.basic) = (SELECT MAX(basic) FROM tbl_staff);
++--------+
+| dname  |
++--------+
+| coding |
++--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT d.dname FROM department d JOIN tbl_staff e ON d.deptid = e.deptid GROUP BY d.dname HAVING min(e.basic) = (SELECT min(basic) FROM tbl_staff);
++----------+
+| dname    |
++----------+
+| research |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MAX(Basic)
+    -> FROM tbl_staff
+    -> WHERE Basic < (SELECT MAX(Basic) FROM tbl_staff);
++------------+
+| MAX(Basic) |
++------------+
+|    4500.00 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT min(Basic) FROM tbl_staff WHERE Basic < (SELECT min(Basic) FROM tbl_staff);
++------------+
+| min(Basic) |
++------------+
+|       NULL |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT min(Basic) FROM tbl_staff WHERE Basic > (SELECT min(Basic) FROM tbl_staff);
++------------+
+| min(Basic) |
++------------+
+|    2000.00 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> 
+mysql> select tbl_staff.Name from tbl_staff join department on tbl_staff.DeptID=department.deptid where tbl_staff.Basic>(select avg(Basic) from tbl_staff where DeptID=tbl_staff.DeptID);
++---------+
+| Name    |
++---------+
+| arun    |
+| mary    |
+| mridula |
+| krian   |
++---------+
+4 rows in set (0.00 sec)
+
+ysql>  alter table tbl_staff add managerid char(5);
+Query OK, 0 rows affected (0.22 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> mysql>  select * from tbl_staff;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql>  select * from tbl_staff' at line 1
+mysql> select * from tbl_staff;
++------+--------+---------+---------+---------+--------+--------------+-----------+
+| ID   | DeptID | Name    | Design  | Basic   | Gender | joining_date | managerid |
++------+--------+---------+---------+---------+--------+--------------+-----------+
+| 101  |      1 | ram     | typist  | 2000.00 | m      | 2023-05-29   | NULL      |
+| 102  |      2 | arun    | analyst | 6000.00 | m      | 2023-04-30   | NULL      |
+| 121  |      1 | Ruby    | typist  | 2010.00 | f      | NULL         | NULL      |
+| 156  |      3 | mary    | manager | 4500.00 | f      | NULL         | NULL      |
+| 123  |      2 | mridula | analyst | 6000.00 | f      | NULL         | NULL      |
+| 114  |      4 | menon   | clerk   | 1500.00 | m      | NULL         | NULL      |
+| 115  |      4 | tim     | clerk   | 1500.00 | m      | NULL         | NULL      |
+| 127  |      2 | krian   | manager | 4000.00 | m      | NULL         | NULL      |
+| 108  |      1 | dinkan  | clerk   | 3200.00 | m      | NULL         | NULL      |
++------+--------+---------+---------+---------+--------+--------------+-----------+
+9 rows in set (0.00 sec)
+
+mysql> update employee set managerid='NULL' where id='101';
+ERROR 1146 (42S02): Table '23mca25.employee' doesn't exist
+mysql> update tbl_staff set managerid='NULL' where id='101';
+Query OK, 1 row affected (0.06 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update tbl_staff set managerid='101' where id in('102','121','156');
+Query OK, 3 rows affected (0.06 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> update tbl_staff set managerid='102' where id in('123','114','115');
+Query OK, 3 rows affected (0.05 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> select * from tbl_staff;
++------+--------+---------+---------+---------+--------+--------------+-----------+
+| ID   | DeptID | Name    | Design  | Basic   | Gender | joining_date | managerid |
++------+--------+---------+---------+---------+--------+--------------+-----------+
+| 101  |      1 | ram     | typist  | 2000.00 | m      | 2023-05-29   | NULL      |
+| 102  |      2 | arun    | analyst | 6000.00 | m      | 2023-04-30   | 101       |
+| 121  |      1 | Ruby    | typist  | 2010.00 | f      | NULL         | 101       |
+| 156  |      3 | mary    | manager | 4500.00 | f      | NULL         | 101       |
+| 123  |      2 | mridula | analyst | 6000.00 | f      | NULL         | 102       |
+| 114  |      4 | menon   | clerk   | 1500.00 | m      | NULL         | 102       |
+| 115  |      4 | tim     | clerk   | 1500.00 | m      | NULL         | 102       |
+| 127  |      2 | krian   | manager | 4000.00 | m      | NULL         | NULL      |
+| 108  |      1 | dinkan  | clerk   | 3200.00 | m      | NULL         | NULL      |
++------+--------+---------+---------+---------+--------+--------------+-----------+
+9 rows in set (0.00 sec)
+
++--------------------+
+| Database           |
++--------------------+
+| 23mca25            |
+| information_schema |
+| performance_schema |
++--------------------+
+3 rows in set (0.04 sec)
+
+mysql> use 23mca25;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_23mca25 |
++-------------------+
+| department        |
+| tbl_staff         |
++-------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from department;
++--------+----------+
+| deptid | dname    |
++--------+----------+
+|      1 | design   |
+|      2 | coding   |
+|      3 | testing  |
+|      4 | research |
+|      5 | maintain |
++--------+----------+
+5 rows in set (0.01 sec)
+
+mysql> select * from tbl_staff;
++------+--------+---------+---------+---------+--------+--------------+-----------+
+| ID   | DeptID | Name    | Design  | Basic   | Gender | joining_date | managerid |
++------+--------+---------+---------+---------+--------+--------------+-----------+
+| 101  |      1 | ram     | typist  | 2000.00 | m      | 2023-05-29   | NULL      |
+| 102  |      2 | arun    | analyst | 6000.00 | m      | 2023-04-30   | 101       |
+| 121  |      1 | Ruby    | typist  | 2010.00 | f      | NULL         | 101       |
+| 156  |      3 | mary    | manager | 4500.00 | f      | NULL         | 101       |
+| 123  |      2 | mridula | analyst | 6000.00 | f      | NULL         | 102       |
+| 114  |      4 | menon   | clerk   | 1500.00 | m      | NULL         | 102       |
+| 115  |      4 | tim     | clerk   | 1500.00 | m      | NULL         | 102       |
+| 127  |      2 | krian   | manager | 4000.00 | m      | NULL         | NULL      |
+| 108  |      1 | dinkan  | clerk   | 3200.00 | m      | NULL         | NULL      |
++------+--------+---------+---------+---------+--------+--------------+-----------+
+9 rows in set (0.02 sec)
+
+mysql> select deptid,count(*) as "Number of Dept_employees" from employees group by deptid having count(*)>3;
+ERROR 1146 (42S02): Table '23mca25.employees' doesn't exist
+mysql> select DeptID,count(*) as "Number of Dept_employees" from tb_staff group by DeptID having count(*)>3;
+ERROR 1146 (42S02): Table '23mca25.tb_staff' doesn't exist
+mysql> select DeptID,count(*) as "Number of Dept_employees" from tbl_staff group by DeptID having count(*)>3;
+Empty set (0.00 sec)
+
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> select deptid,min(salary) as "lowest salary" from employees group by deptid having min(salary)>2500;
+ERROR 1146 (42S02): Table '23mca25.employees' doesn't exist
+mysql> select DeptID,min(Basic) as "lowest salary" from tbl_staff group by DeptID having min(Basic)>2500;
++--------+---------------+
+| DeptID | lowest salary |
++--------+---------------+
+|      2 |       4000.00 |
+|      3 |       4500.00 |
++--------+---------------+
+2 rows in set (0.00 sec)
+
+mysql> select e.Name from tbl_staff inner join(select DeptID,max(Basic) as max_salary from tbl_staff group by (DeptID) max_salaries on e.DeptID=max_salaries.DeptID  and e.salary=max_salaries.max_salary);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'max_salaries on e.DeptID=max_salaries.DeptID  and e.salary=max_salaries.max_sala' at line 1
+mysql> select e.Name from tbl_staff inner join(select DeptID,max(Basic) as max_salary from tbl_staff group by (DeptID) max_salaries on e.DeptID=max_salaries.DeptID  and e.salary=max_salaries.max_salary);DDD
+[1]+  Stopped                 mysql -u 23mca25 -p
+23mca25@Dell-PowerEdge-R520:~$ mysql -u 23mca25 -p 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 60
+Server version: 8.0.36-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use 23mca25;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SELECT e.Name 
+    -> FROM tbl_staff e 
+    -> INNER JOIN (
+    ->     SELECT DeptID, MAX(Basic) AS max_salary
+    ->     FROM tbl_staff
+    ->     GROUP BY DeptID
+    -> ) max_salaries 
+    -> ON e.DeptID = max_salaries.DeptID 
+    -> AND e.Basic = max_salaries.max_salary;SELECT e.Name 
++---------+
+| Name    |
++---------+
+| arun    |
+| mary    |
+| mridula |
+| menon   |
+| tim     |
+| dinkan  |
++---------+
+6 rows in set (0.01 sec)
+
+    -> FROM tbl_staff e 
+    -> INNER JOIN (
+    ->     SELECT DeptID, MAX(Basic) AS max_salary
+    ->     FROM tbl_staff
+    ->     GROUP BY DeptID
+    -> ) max_salaries 
+    -> ON e.DeptID = max_salaries.DeptID 
+    -> AND e.Basic = max_salaries.max_salary;
++---------+
+| Name    |
++---------+
+| arun    |
+| mary    |
+| mridula |
+| menon   |
+| tim     |
+| dinkan  |
++---------+
+6 rows in set (0.00 sec)
+
+mysql> select e.Name from employees where e.Basic>any(select Basic from tbl_staff where Basic<e.Basic);
+ERROR 1146 (42S02): Table '23mca25.employees' doesn't exist
+mysql> select e.Name from tbl_staff where e.Basic>any(select Basic from tbl_staff where Basic<e.Basic);
+ERROR 1054 (42S22): Unknown column 'e.Name' in 'field list'
+mysql> select Name from tbl_staff where e.Basic>any(select Basic from tbl_staff where Basic<e.Basic);
+ERROR 1054 (42S22): Unknown column 'e.Basic' in 'IN/ALL/ANY subquery'
+mysql> select e.Name from tbl_staff where e.Basic>any(select Basic from tbl_staff where Basic<e.Basic);
+ERROR 1054 (42S22): Unknown column 'e.Name' in 'field list'
+mysql> select e.Name from tbl_staff e where e.Basic>any(select Basic from tbl_staff where Basic<e.Basic);
++---------+
+| Name    |
++---------+
+| ram     |
+| arun    |
+| Ruby    |
+| mary    |
+| mridula |
+| krian   |
+| dinkan  |
++---------+
+7 rows in set (0.00 sec)
+
+mysql> select distinct e.Name from tbl_staff e where e.Basic>any(select Basic from tbl_staff where Basic<e.Basic)or e.Basic<ant(select Basic from tblo_staff ehere Basic>e.Basic);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select Basic from tblo_staff ehere Basic>e.Basic)' at line 1
+mysql> select distinct e.Name from tbl_staff e where e.Basic>any(select Basic from tbl_staff where Basic<e.Basic)or e.Basic<any(select Basic from tblo_staff ehere Basic>e.Basic);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Basic>e.Basic)' at line 1
+mysql> select distinct e.Name from tbl_staff e where e.Basic>any(select Basic from tbl_staff where Basic<e.Basic)or e.Basic<any(select Basic from tblo_staff where Basic>e.Basic);
+ERROR 1146 (42S02): Table '23mca25.tblo_staff' doesn't exist
+mysql> select distinct e.Name from tbl_staff e where e.Basic>any(select Basic from tbl_staff where Basic<e.Basic)or e.Basic<any(select Basic from tbl_staff where Basic>e.Basic);
++---------+
+| Name    |
++---------+
+| ram     |
+| arun    |
+| Ruby    |
+| mary    |
+| mridula |
+| menon   |
+| tim     |
+| krian   |
+| dinkan  |
++---------+
+9 rows in set (0.00 sec)
+
+mysql> alter table tbl_staff add column City varchar(25);
+Query OK, 0 rows affected (0.30 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc tbl_staff;
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| ID           | char(5)       | YES  |     | NULL    |       |
+| DeptID       | int           | YES  | MUL | NULL    |       |
+| Name         | char(15)      | YES  |     | NULL    |       |
+| Design       | char(15)      | YES  |     | NULL    |       |
+| Basic        | decimal(10,2) | YES  |     | NULL    |       |
+| Gender       | char(1)       | YES  |     | NULL    |       |
+| joining_date | date          | YES  |     | NULL    |       |
+| managerid    | char(5)       | YES  |     | NULL    |       |
+| City         | varchar(25)   | YES  |     | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+
+mysql> alter table department add column city varchar(25);
+Query OK, 0 rows affected (0.19 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc department;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| deptid | int         | NO   | PRI | NULL    |       |
+| dname  | char(15)    | YES  |     | NULL    |       |
+| city   | varchar(25) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select e.Name from tbl_staff e inner join depratment on e.City=d.city where e.City=d.city;
+ERROR 1146 (42S02): Table '23mca25.depratment' doesn't exist
+mysql> select e.Name from tbl_staff e inner join department on e.City=d.city where e.City=d.city;
+ERROR 1054 (42S22): Unknown column 'd.city' in 'where clause'
+mysql> select e.Name from tbl_staff e inner join department d on e.City=d.city where e.City=d.city;
+Empty set (0.00 sec)
+
+mysql> select * tbl_staff;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tbl_staff' at line 1
+mysql> select * from tbl_staff;
++------+--------+---------+---------+---------+--------+--------------+-----------+------+
+| ID   | DeptID | Name    | Design  | Basic   | Gender | joining_date | managerid | City |
++------+--------+---------+---------+---------+--------+--------------+-----------+------+
+| 101  |      1 | ram     | typist  | 2000.00 | m      | 2023-05-29   | NULL      | NULL |
+| 102  |      2 | arun    | analyst | 6000.00 | m      | 2023-04-30   | 101       | NULL |
+| 121  |      1 | Ruby    | typist  | 2010.00 | f      | NULL         | 101       | NULL |
+| 156  |      3 | mary    | manager | 4500.00 | f      | NULL         | 101       | NULL |
+| 123  |      2 | mridula | analyst | 6000.00 | f      | NULL         | 102       | NULL |
+| 114  |      4 | menon   | clerk   | 1500.00 | m      | NULL         | 102       | NULL |
+| 115  |      4 | tim     | clerk   | 1500.00 | m      | NULL         | 102       | NULL |
+| 127  |      2 | krian   | manager | 4000.00 | m      | NULL         | NULL      | NULL |
+| 108  |      1 | dinkan  | clerk   | 3200.00 | m      | NULL         | NULL      | NULL |
++------+--------+---------+---------+---------+--------+--------------+-----------+------+
+9 rows in set (0.00 sec)
+
+mysql> select Name from tbl_staff where joining_date like '2023______';
++------+
+| Name |
++------+
+| ram  |
+| arun |
++------+
+2 rows in set (0.00 sec)
+
+mysql> update tbl_staff set City='kottayam where id =101;
+    '> 
+    '> ;
+    '> l;
+    '> ;
+    '> ;
+    '> '
+    -> ;
+ERROR 1406 (22001): Data too long for column 'City' at row 1
+mysql> update tbl_staff set City='kottayam' where id =101;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from tbl_staff;
++------+--------+---------+---------+---------+--------+--------------+-----------+----------+
+| ID   | DeptID | Name    | Design  | Basic   | Gender | joining_date | managerid | City     |
++------+--------+---------+---------+---------+--------+--------------+-----------+----------+
+| 101  |      1 | ram     | typist  | 2000.00 | m      | 2023-05-29   | NULL      | kottayam |
+| 102  |      2 | arun    | analyst | 6000.00 | m      | 2023-04-30   | 101       | NULL     |
+| 121  |      1 | Ruby    | typist  | 2010.00 | f      | NULL         | 101       | NULL     |
+| 156  |      3 | mary    | manager | 4500.00 | f      | NULL         | 101       | NULL     |
+| 123  |      2 | mridula | analyst | 6000.00 | f      | NULL         | 102       | NULL     |
+| 114  |      4 | menon   | clerk   | 1500.00 | m      | NULL         | 102       | NULL     |
+| 115  |      4 | tim     | clerk   | 1500.00 | m      | NULL         | 102       | NULL     |
+| 127  |      2 | krian   | manager | 4000.00 | m      | NULL         | NULL      | NULL     |
+| 108  |      1 | dinkan  | clerk   | 3200.00 | m      | NULL         | NULL      | NULL     |
++------+--------+---------+---------+---------+--------+--------------+-----------+----------+
+9 rows in set (0.00 sec)
+
+mysql> update tbl_staff set City='kottayam' where id =156;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update tbl_staff set City='kottayam' where id =108;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update tbl_staff set City='alapuzha' where id =127;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update tbl_staff set City='alapuzha' where id =114;
+Query OK, 1 row affected (0.06 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update tbl_staff set City='trivandrum' where id =115;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update tbl_staff set City='pathanamthitta' where id =115;
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from tbl_staff;
++------+--------+---------+---------+---------+--------+--------------+-----------+----------------+
+| ID   | DeptID | Name    | Design  | Basic   | Gender | joining_date | managerid | City           |
++------+--------+---------+---------+---------+--------+--------------+-----------+----------------+
+| 101  |      1 | ram     | typist  | 2000.00 | m      | 2023-05-29   | NULL      | kottayam       |
+| 102  |      2 | arun    | analyst | 6000.00 | m      | 2023-04-30   | 101       | NULL           |
+| 121  |      1 | Ruby    | typist  | 2010.00 | f      | NULL         | 101       | NULL           |
+| 156  |      3 | mary    | manager | 4500.00 | f      | NULL         | 101       | kottayam       |
+| 123  |      2 | mridula | analyst | 6000.00 | f      | NULL         | 102       | NULL           |
+| 114  |      4 | menon   | clerk   | 1500.00 | m      | NULL         | 102       | alapuzha       |
+| 115  |      4 | tim     | clerk   | 1500.00 | m      | NULL         | 102       | pathanamthitta |
+| 127  |      2 | krian   | manager | 4000.00 | m      | NULL         | NULL      | alapuzha       |
+| 108  |      1 | dinkan  | clerk   | 3200.00 | m      | NULL         | NULL      | kottayam       |
++------+--------+---------+---------+---------+--------+--------------+-----------+----------------+
+9 rows in set (0.00 sec)
+
+mysql> select e.Name from tbl_staff e inner join department d on e.City=d.city where e.City=d.city;
+Empty set (0.00 sec)
+
+mysql> update department set city='kottayam' where deptid=1;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update department set city='pathanamthitta' where deptid=2;
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update department set city='alapuzha' where deptid=3;
+Query OK, 1 row affected (0.06 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select e.Name from tbl_staff e inner join department d on e.City=d.city where e.City=d.city;
++--------+
+| Name   |
++--------+
+| ram    |
+| mary   |
+| menon  |
+| tim    |
+| krian  |
+| dinkan |
++--------+
+6 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_23mca25 |
++-------------------+
+| department        |
+| tbl_staff         |
++-------------------+
+2 rows in set (0.00 sec)
+
+mysql> show department;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'department' at line 1
+mysql> show table department;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'department' at line 1
+mysql> select * from department;
++--------+----------+----------------+
+| deptid | dname    | city           |
++--------+----------+----------------+
+|      1 | design   | kottayam       |
+|      2 | coding   | pathanamthitta |
+|      3 | testing  | alapuzha       |
+|      4 | research | NULL           |
+|      5 | maintain | NULL           |
++--------+----------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from tbl_staff;
++------+--------+---------+---------+---------+--------+--------------+-----------+----------------+
+| ID   | DeptID | Name    | Design  | Basic   | Gender | joining_date | managerid | City           |
++------+--------+---------+---------+---------+--------+--------------+-----------+----------------+
+| 101  |      1 | ram     | typist  | 2000.00 | m      | 2023-05-29   | NULL      | kottayam       |
+| 102  |      2 | arun    | analyst | 6000.00 | m      | 2023-04-30   | 101       | NULL           |
+| 121  |      1 | Ruby    | typist  | 2010.00 | f      | NULL         | 101       | NULL           |
+| 156  |      3 | mary    | manager | 4500.00 | f      | NULL         | 101       | kottayam       |
+| 123  |      2 | mridula | analyst | 6000.00 | f      | NULL         | 102       | NULL           |
+| 114  |      4 | menon   | clerk   | 6300.00 | m      | NULL         | 102       | alapuzha       |
+| 115  |      4 | tim     | clerk   | 8000.00 | m      | NULL         | 102       | pathanamthitta |
+| 127  |      2 | krian   | manager | 4000.00 | m      | NULL         | NULL      | alapuzha       |
+| 108  |      1 | dinkan  | clerk   | 3200.00 | m      | NULL         | NULL      | kottayam       |
++------+--------+---------+---------+---------+--------+--------------+-----------+----------------+
+9 rows in set (0.00 sec)
+
+mysql> select DeptID,count(case when salary>5000 then end)as num_employees_over_5000_salary from tbl_staff group by DeptID having count(*)>4;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')as num_employees_over_5000_salary from tbl_staff group by DeptID having count(*' at line 1
+mysql> select DeptID,count(ID where salary>5000 then end)as num_employees_over_5000_salary from tbl_staff group by DeptID having count(*)>4;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where salary>5000 then end)as num_employees_over_5000_salary from tbl_staff grou' at line 1
+mysql> select DeptID,count(case where salary>5000 then end)as num_employees_over_5000_salary from tbl_staff group by DeptID having count(*)>4;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where salary>5000 then end)as num_employees_over_5000_salary from tbl_staff grou' at line 1
+mysql> SELECT DeptID, SUM(CASE WHEN salary > 5000 THEN 1 ELSE 0 END) as num_employees_over_5000_salary
+    -> FROM tbl_staff
+    -> GROUP BY DeptID
+    -> HAVING COUNT(*) > 4;
+ERROR 1054 (42S22): Unknown column 'salary' in 'field list'
+mysql> SELECT DeptID, SUM(CASE WHEN salary > 5000 THEN 1 ELSE 0 END) as num_employees_over_5000_salary
+    -> FROM tbl_staff
+    -> GROUP BY DeptID
+    -> HAVING COUNT(*) > 4;
+ERROR 1054 (42S22): Unknown column 'salary' in 'field list'
+mysql> SELECT DeptID, SUM(CASE WHEN Basic > 5000 THEN 1 ELSE 0 END) as num_employees_over_5000_salary FROM tbl_staff GROUP BY DeptID HAVING COUNT(*) > 4;
+Empty set (0.00 sec)
+
+mysql> SELECT DeptID, SUM(CASE WHEN Basic > 5000 THEN 1 ELSE 0 END) as num_employees_over_5000_salary FROM tbl_staff GROUP BY DeptID HAVING COUNT(*) > 3;
+Empty set (0.00 sec)
+
+mysql> SELECT DeptID, SUM(CASE WHEN Basic > 5000 THEN 1 ELSE 0 END) as num_employees_over_5000_salary FROM tbl_staff GROUP BY DeptID HAVING COUNT(*) > 2;
++--------+--------------------------------+
+| DeptID | num_employees_over_5000_salary |
++--------+--------------------------------+
+|      1 |                              0 |
+|      2 |                              2 |
++--------+--------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT DeptID, SUM(CASE WHEN Basic > 5000 THEN 1 ELSE 0 END) as num_employees_over_5000_salary FROM tbl_staff GROUP BY DeptID HAVING COUNT(*) > 2;
++--------+--------------------------------+
+| DeptID | num_employees_over_5000_salary |
++--------+--------------------------------+
+|      1 |                              0 |
+|      2 |                              2 |
++--------+--------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT DeptID, SUM(CASE WHEN Basic > 5000 THEN 1 ELSE 0 END) as num_employees_over_5000_salary FROM tbl_staff GROUP BY DeptID HAVING COUNT(*) > 1;
++--------+--------------------------------+
+| DeptID | num_employees_over_5000_salary |
++--------+--------------------------------+
+|      1 |                              0 |
+|      2 |                              2 |
+|      4 |                              2 |
++--------+--------------------------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT DeptID, COUNT(*) as num_employees_over_5000
+    -> FROM tbl_staff
+    -> WHERE salary > 5000
+    -> GROUP BY DeptID
+    -> HAVING COUNT(*) > 4;
+ERROR 1054 (42S22): Unknown column 'salary' in 'where clause'
+mysql> SELECT DeptID, COUNT(*) as num_employees_over_5000 FROM tbl_staff WHERE Basic > 5000 GROUP BY DeptID HAVING COUNT(*) > 4;
+Empty set (0.00 sec)
+
+mysql> SELECT DeptID, COUNT(*) as num_employees_over_5000 FROM tbl_staff WHERE Basic > 5000 GROUP BY DeptID HAVING COUNT(*) > 1;
++--------+-------------------------+
+| DeptID | num_employees_over_5000 |
++--------+-------------------------+
+|      2 |                       2 |
+|      4 |                       2 |
++--------+-------------------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT DeptID, COUNT(*) as num_employees_over_5000 FROM tbl_staff WHERE Basic > 5000 GROUP BY DeptID HAVING COUNT(*) > 4;
+Empty set (0.00 sec)
+
+mysql> SELECT DeptID, COUNT(*) as num_employees_over_5000 FROM tbl_staff WHERE Basic > 3000 GROUP BY DeptID HAVING COUNT(*) > 4;
+Empty set (0.00 sec)
+
+mysql> SELECT DeptID, COUNT(*) as num_employees_over_5000 FROM tbl_staff WHERE Basic > 1000 GROUP BY DeptID HAVING COUNT(*) > 4;
+Empty set (0.00 sec)
+
+mysql> SELECT DeptID, COUNT(*) as num_employees_over_5000 FROM tbl_staff WHERE Basic > 500 GROUP BY DeptID HAVING COUNT(*) > 4;
+Empty set (0.00 sec)
+
+mysql> SELECT DeptID, COUNT(*) as num_employees_over_5000 FROM tbl_staff WHERE Basic > 500 GROUP BY DeptID HAVING COUNT(*) > 3;
+Empty set (0.00 sec)
+
+mysql> SELECT DeptID, COUNT(*) as num_employees_over_5000 FROM tbl_staff WHERE Basic > 500 GROUP BY DeptID HAVING COUNT(*) > 2;
++--------+-------------------------+
+| DeptID | num_employees_over_5000 |
++--------+-------------------------+
+|      1 |                       3 |
+|      2 |                       3 |
++--------+-------------------------+
+2 rows in set (0.00 sec)
+
+mysql> insert into tbl_staff(Name,DeptID)values("employee1",NULL),("employee2",NULL),("employee3",NULL);
+Query OK, 3 rows affected (0.07 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from tbl_staff;
++------+--------+-----------+---------+---------+--------+--------------+-----------+----------------+
+| ID   | DeptID | Name      | Design  | Basic   | Gender | joining_date | managerid | City           |
++------+--------+-----------+---------+---------+--------+--------------+-----------+----------------+
+| 101  |      1 | ram       | typist  | 2000.00 | m      | 2023-05-29   | NULL      | kottayam       |
+| 102  |      2 | arun      | analyst | 6000.00 | m      | 2023-04-30   | 101       | NULL           |
+| 121  |      1 | Ruby      | typist  | 2010.00 | f      | NULL         | 101       | NULL           |
+| 156  |      3 | mary      | manager | 4500.00 | f      | NULL         | 101       | kottayam       |
+| 123  |      2 | mridula   | analyst | 6000.00 | f      | NULL         | 102       | NULL           |
+| 114  |      4 | menon     | clerk   | 6300.00 | m      | NULL         | 102       | alapuzha       |
+| 115  |      4 | tim       | clerk   | 8000.00 | m      | NULL         | 102       | pathanamthitta |
+| 127  |      2 | krian     | manager | 4000.00 | m      | NULL         | NULL      | alapuzha       |
+| 108  |      1 | dinkan    | clerk   | 3200.00 | m      | NULL         | NULL      | kottayam       |
+| NULL |   NULL | employee1 | NULL    |    NULL | NULL   | NULL         | NULL      | NULL           |
+| NULL |   NULL | employee2 | NULL    |    NULL | NULL   | NULL         | NULL      | NULL           |
+| NULL |   NULL | employee3 | NULL    |    NULL | NULL   | NULL         | NULL      | NULL           |
++------+--------+-----------+---------+---------+--------+--------------+-----------+----------------+
+12 rows in set (0.00 sec)
+
+mysql> select e.Name,d.DeptID from tbl_staff leftjoin departments on e.DeptID=d.deptid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'departments on e.DeptID=d.deptid' at line 1
+mysql> select Name,DeptID from tbl_staff leftjoin departments on DeptID=deptid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'departments on DeptID=deptid' at line 1
+mysql> select e.Name,d.DeptID from tbl_staff leftjoin department on e.DeptID=d.deptid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'department on e.DeptID=d.deptid' at line 1
+mysql> SELECT e.Name, COALESCE(d.DeptID, 'null') AS DeptID
+    -> FROM tbl_staff e
+    -> LEFT JOIN departments d
+    -> ON e.DeptID = d.DeptID;
+ERROR 1146 (42S02): Table '23mca25.departments' doesn't exist
+mysql> SELECT e.Name, COALESCE(d.DeptID, 'null') AS DeptID FROM tbl_staff e LEFT JOIN department d ON e.DeptID = d.DeptID;
++-----------+--------+
+| Name      | DeptID |
++-----------+--------+
+| ram       | 1      |
+| arun      | 2      |
+| Ruby      | 1      |
+| mary      | 3      |
+| mridula   | 2      |
+| menon     | 4      |
+| tim       | 4      |
+| krian     | 2      |
+| dinkan    | 1      |
+| employee1 | null   |
+| employee2 | null   |
+| employee3 | null   |
++-----------+--------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT e.Name,d.DeptID FROM tbl_staff e LEFT JOIN department d ON e.DeptID = d.DeptID;
++-----------+--------+
+| Name      | DeptID |
++-----------+--------+
+| ram       |      1 |
+| arun      |      2 |
+| Ruby      |      1 |
+| mary      |      3 |
+| mridula   |      2 |
+| menon     |      4 |
+| tim       |      4 |
+| krian     |      2 |
+| dinkan    |      1 |
+| employee1 |   NULL |
+| employee2 |   NULL |
+| employee3 |   NULL |
++-----------+--------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT e.Name, COALESCE(d.DeptID, 0) AS DeptID
+    -> FROM tbl_staff e
+    -> LEFT JOIN departments d
+    -> ON e.DeptID = d.DeptID;
+ERROR 1146 (42S02): Table '23mca25.departments' doesn't exist
+mysql> SELECT e.Name, COALESCE(d.DeptID, 0) AS DeptID FROM tbl_staff e LEFT JOIN department d ON e.DeptID = d.DeptID;
++-----------+--------+
+| Name      | DeptID |
++-----------+--------+
+| ram       |      1 |
+| arun      |      2 |
+| Ruby      |      1 |
+| mary      |      3 |
+| mridula   |      2 |
+| menon     |      4 |
+| tim       |      4 |
+| krian     |      2 |
+| dinkan    |      1 |
+| employee1 |      0 |
+| employee2 |      0 |
+| employee3 |      0 |
++-----------+--------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT e.Name, IFNULL(d.DeptID, 0) AS DeptID FROM tbl_staff e LEFT JOIN department d ON e.DeptID = d.DeptID;
++-----------+--------+
+| Name      | DeptID |
++-----------+--------+
+| ram       |      1 |
+| arun      |      2 |
+| Ruby      |      1 |
+| mary      |      3 |
+| mridula   |      2 |
+| menon     |      4 |
+| tim       |      4 |
+| krian     |      2 |
+| dinkan    |      1 |
+| employee1 |      0 |
+| employee2 |      0 |
+| employee3 |      0 |
++-----------+--------+
+12 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 2000
+Server version: 8.0.36-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use 23mca25;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> insert into tbl_staff values(145,1,'Allen','clerk',7000,'m',NULL,NULL,NULL);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from tbl_staff;
++------+--------+-----------+---------+---------+--------+--------------+-----------+----------------+
+| ID   | DeptID | Name      | Design  | Basic   | Gender | joining_date | managerid | City           |
++------+--------+-----------+---------+---------+--------+--------------+-----------+----------------+
+| 101  |      1 | ram       | typist  | 2000.00 | m      | 2023-05-29   | NULL      | kottayam       |
+| 102  |      2 | arun      | analyst | 6000.00 | m      | 2023-04-30   | 101       | NULL           |
+| 121  |      1 | Ruby      | typist  | 2010.00 | f      | NULL         | 101       | NULL           |
+| 156  |      3 | mary      | manager | 4500.00 | f      | NULL         | 101       | kottayam       |
+| 123  |      2 | mridula   | analyst | 6000.00 | f      | NULL         | 102       | NULL           |
+| 114  |      4 | menon     | clerk   | 6300.00 | m      | NULL         | 102       | alapuzha       |
+| 115  |      4 | tim       | clerk   | 8000.00 | m      | NULL         | 102       | pathanamthitta |
+| 127  |      2 | krian     | manager | 4000.00 | m      | NULL         | NULL      | alapuzha       |
+| 108  |      1 | dinkan    | clerk   | 3200.00 | m      | NULL         | NULL      | kottayam       |
+| NULL |   NULL | employee1 | NULL    |    NULL | NULL   | NULL         | NULL      | NULL           |
+| NULL |   NULL | employee2 | NULL    |    NULL | NULL   | NULL         | NULL      | NULL           |
+| NULL |   NULL | employee3 | NULL    |    NULL | NULL   | NULL         | NULL      | NULL           |
+| 140  |      1 | Hadi      | clerk   | 8500.00 | m      | NULL         | NULL      | NULL           |
+| 144  |      2 | Haritha   | typist  | 8000.00 | f      | NULL         | NULL      | NULL           |
+| 145  |      1 | Allen     | clerk   | 7000.00 | m      | NULL         | NULL      | NULL           |
++------+--------+-----------+---------+---------+--------+--------------+-----------+----------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT DeptID, COUNT(*) as num_employees_over_5000
+    -> FROM tbl_staff
+    -> WHERE salary > 5000
+    -> GROUP BY DeptID
+    -> HAVING COUNT(*) > 4;
+ERROR 1054 (42S22): Unknown column 'salary' in 'where clause'
+mysql> SELECT DeptID, COUNT(*) as num_employees_over_5000 FROM tbl_staff WHERE Basic > 5000 GROUP BY DeptID HAVING COUNT(*) > 4;
+Empty set (0.00 sec)
+
+mysql> update tbl_staff set Basic=5500 where Name='ram';
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from tbl_staff;
++------+--------+-----------+---------+---------+--------+--------------+-----------+----------------+
+| ID   | DeptID | Name      | Design  | Basic   | Gender | joining_date | managerid | City           |
++------+--------+-----------+---------+---------+--------+--------------+-----------+----------------+
+| 101  |      1 | ram       | typist  | 5500.00 | m      | 2023-05-29   | NULL      | kottayam       |
+| 102  |      2 | arun      | analyst | 6000.00 | m      | 2023-04-30   | 101       | NULL           |
+| 121  |      1 | Ruby      | typist  | 2010.00 | f      | NULL         | 101       | NULL           |
+| 156  |      3 | mary      | manager | 4500.00 | f      | NULL         | 101       | kottayam       |
+| 123  |      2 | mridula   | analyst | 6000.00 | f      | NULL         | 102       | NULL           |
+| 114  |      4 | menon     | clerk   | 6300.00 | m      | NULL         | 102       | alapuzha       |
+| 115  |      4 | tim       | clerk   | 8000.00 | m      | NULL         | 102       | pathanamthitta |
+| 127  |      2 | krian     | manager | 4000.00 | m      | NULL         | NULL      | alapuzha       |
+| 108  |      1 | dinkan    | clerk   | 3200.00 | m      | NULL         | NULL      | kottayam       |
+| NULL |   NULL | employee1 | NULL    |    NULL | NULL   | NULL         | NULL      | NULL           |
+| NULL |   NULL | employee2 | NULL    |    NULL | NULL   | NULL         | NULL      | NULL           |
+| NULL |   NULL | employee3 | NULL    |    NULL | NULL   | NULL         | NULL      | NULL           |
+| 140  |      1 | Hadi      | clerk   | 8500.00 | m      | NULL         | NULL      | NULL           |
+| 144  |      2 | Haritha   | typist  | 8000.00 | f      | NULL         | NULL      | NULL           |
+| 145  |      1 | Allen     | clerk   | 7000.00 | m      | NULL         | NULL      | NULL           |
++------+--------+-----------+---------+---------+--------+--------------+-----------+----------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT DeptID, COUNT(*) as num_employees_over_5000 FROM tbl_staff WHERE Basic > 5000 GROUP BY DeptID HAVING COUNT(*) > 4;
+Empty set (0.01 sec)
+
+mysql> update tbl_staff set Basic=5000 where Name='Ruby';
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from tbl_staff;
++------+--------+-----------+---------+---------+--------+--------------+-----------+----------------+
+| ID   | DeptID | Name      | Design  | Basic   | Gender | joining_date | managerid | City           |
++------+--------+-----------+---------+---------+--------+--------------+-----------+----------------+
+| 101  |      1 | ram       | typist  | 5500.00 | m      | 2023-05-29   | NULL      | kottayam       |
+| 102  |      2 | arun      | analyst | 6000.00 | m      | 2023-04-30   | 101       | NULL           |
+| 121  |      1 | Ruby      | typist  | 5000.00 | f      | NULL         | 101       | NULL           |
+| 156  |      3 | mary      | manager | 4500.00 | f      | NULL         | 101       | kottayam       |
+| 123  |      2 | mridula   | analyst | 6000.00 | f      | NULL         | 102       | NULL           |
+| 114  |      4 | menon     | clerk   | 6300.00 | m      | NULL         | 102       | alapuzha       |
+| 115  |      4 | tim       | clerk   | 8000.00 | m      | NULL         | 102       | pathanamthitta |
+| 127  |      2 | krian     | manager | 4000.00 | m      | NULL         | NULL      | alapuzha       |
+| 108  |      1 | dinkan    | clerk   | 3200.00 | m      | NULL         | NULL      | kottayam       |
+| NULL |   NULL | employee1 | NULL    |    NULL | NULL   | NULL         | NULL      | NULL           |
+| NULL |   NULL | employee2 | NULL    |    NULL | NULL   | NULL         | NULL      | NULL           |
+| NULL |   NULL | employee3 | NULL    |    NULL | NULL   | NULL         | NULL      | NULL           |
+| 140  |      1 | Hadi      | clerk   | 8500.00 | m      | NULL         | NULL      | NULL           |
+| 144  |      2 | Haritha   | typist  | 8000.00 | f      | NULL         | NULL      | NULL           |
+| 145  |      1 | Allen     | clerk   | 7000.00 | m      | NULL         | NULL      | NULL           |
++------+--------+-----------+---------+---------+--------+--------------+-----------+----------------+
+15 rows in set (0.00 sec)
+
+mysql> update tbl_staff set Basic=5250 where Name='dinkan';
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from tbl_staff;
++------+--------+-----------+---------+---------+--------+--------------+-----------+----------------+
+| ID   | DeptID | Name      | Design  | Basic   | Gender | joining_date | managerid | City           |
++------+--------+-----------+---------+---------+--------+--------------+-----------+----------------+
+| 101  |      1 | ram       | typist  | 5500.00 | m      | 2023-05-29   | NULL      | kottayam       |
+| 102  |      2 | arun      | analyst | 6000.00 | m      | 2023-04-30   | 101       | NULL           |
+| 121  |      1 | Ruby      | typist  | 5000.00 | f      | NULL         | 101       | NULL           |
+| 156  |      3 | mary      | manager | 4500.00 | f      | NULL         | 101       | kottayam       |
+| 123  |      2 | mridula   | analyst | 6000.00 | f      | NULL         | 102       | NULL           |
+| 114  |      4 | menon     | clerk   | 6300.00 | m      | NULL         | 102       | alapuzha       |
+| 115  |      4 | tim       | clerk   | 8000.00 | m      | NULL         | 102       | pathanamthitta |
+| 127  |      2 | krian     | manager | 4000.00 | m      | NULL         | NULL      | alapuzha       |
+| 108  |      1 | dinkan    | clerk   | 5250.00 | m      | NULL         | NULL      | kottayam       |
+| NULL |   NULL | employee1 | NULL    |    NULL | NULL   | NULL         | NULL      | NULL           |
+| NULL |   NULL | employee2 | NULL    |    NULL | NULL   | NULL         | NULL      | NULL           |
+| NULL |   NULL | employee3 | NULL    |    NULL | NULL   | NULL         | NULL      | NULL           |
+| 140  |      1 | Hadi      | clerk   | 8500.00 | m      | NULL         | NULL      | NULL           |
+| 144  |      2 | Haritha   | typist  | 8000.00 | f      | NULL         | NULL      | NULL           |
+| 145  |      1 | Allen     | clerk   | 7000.00 | m      | NULL         | NULL      | NULL           |
++------+--------+-----------+---------+---------+--------+--------------+-----------+----------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT DeptID, COUNT(*) as num_employees_over_5000 FROM tbl_staff WHERE Basic > 5000 GROUP BY DeptID HAVING COUNT(*) > 4;
+Empty set (0.00 sec)
+
+mysql> update tbl_staff set Basic=5100 where Name='Ruby';
+Query OK, 1 row affected (0.06 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from tbl_staff;
++------+--------+-----------+---------+---------+--------+--------------+-----------+----------------+
+| ID   | DeptID | Name      | Design  | Basic   | Gender | joining_date | managerid | City           |
++------+--------+-----------+---------+---------+--------+--------------+-----------+----------------+
+| 101  |      1 | ram       | typist  | 5500.00 | m      | 2023-05-29   | NULL      | kottayam       |
+| 102  |      2 | arun      | analyst | 6000.00 | m      | 2023-04-30   | 101       | NULL           |
+| 121  |      1 | Ruby      | typist  | 5100.00 | f      | NULL         | 101       | NULL           |
+| 156  |      3 | mary      | manager | 4500.00 | f      | NULL         | 101       | kottayam       |
+| 123  |      2 | mridula   | analyst | 6000.00 | f      | NULL         | 102       | NULL           |
+| 114  |      4 | menon     | clerk   | 6300.00 | m      | NULL         | 102       | alapuzha       |
+| 115  |      4 | tim       | clerk   | 8000.00 | m      | NULL         | 102       | pathanamthitta |
+| 127  |      2 | krian     | manager | 4000.00 | m      | NULL         | NULL      | alapuzha       |
+| 108  |      1 | dinkan    | clerk   | 5250.00 | m      | NULL         | NULL      | kottayam       |
+| NULL |   NULL | employee1 | NULL    |    NULL | NULL   | NULL         | NULL      | NULL           |
+| NULL |   NULL | employee2 | NULL    |    NULL | NULL   | NULL         | NULL      | NULL           |
+| NULL |   NULL | employee3 | NULL    |    NULL | NULL   | NULL         | NULL      | NULL           |
+| 140  |      1 | Hadi      | clerk   | 8500.00 | m      | NULL         | NULL      | NULL           |
+| 144  |      2 | Haritha   | typist  | 8000.00 | f      | NULL         | NULL      | NULL           |
+| 145  |      1 | Allen     | clerk   | 7000.00 | m      | NULL         | NULL      | NULL           |
++------+--------+-----------+---------+---------+--------+--------------+-----------+----------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT DeptID, COUNT(*) as num_employees_over_5000 FROM tbl_staff WHERE Basic > 5000 GROUP BY DeptID HAVING COUNT(*) > 4;
++--------+-------------------------+
+| DeptID | num_employees_over_5000 |
++--------+-------------------------+
+|      1 |                       5 |
++--------+-------------------------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+mysql> select DeptID,count(*) as num_employees from tbl_staff group by DeptID having count(*)>2;
++--------+---------------+
+| DeptID | num_employees |
++--------+---------------+
+|   NULL |             3 |
+|      1 |             5 |
+|      2 |             4 |
++--------+---------------+
+3 rows in set (0.00 sec)
+
+mysql> 
+mysql> SELECT d.DeptID, DName, SUM(e.Basic) AS TotalSalary FROM department d LEFT JOIN tbl_staff e ON d.DeptID = e.DeptID GROUP BY d.DeptID, dname HAVING COUNT(e.ID) > 0 ORDER BY TotalSalary LIMIT 1;
++--------+---------+-------------+
+| DeptID | DName   | TotalSalary |
++--------+---------+-------------+
+|      3 | testing |     4500.00 |
++--------+---------+-------------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+

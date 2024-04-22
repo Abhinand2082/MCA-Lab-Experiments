@@ -1,0 +1,412 @@
+mysql> create table employee(id char(5),deptid numeric(2),name varchar(15),design varchar(15),basic numeric(10,2),gender char(1));
+Query OK, 0 rows affected (0.32 sec)
+
+mysql> mysql> insert into employee values('101',1,'ram','typist',2000,'m');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql> insert into employee values('101',1,'ram','typist',2000,'m')' at line 1
+mysql> insert into employee values('101',1,'ram','typist',2000,'m');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into employee values('102',2,'arun','analyst',6000,'m');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into employee values('121',1,'ruby','typist',2010,'f');
+Query OK, 1 row affected (0.04 sec)
+
+mysql>  insert into employee values('156',3,'mary','manager',4500,'f');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into employee values('123',2,'mridula','analyst',6000,'f');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into employee values('114',4,'menon','clerk',1500,'m');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into employee values('115',4,'tim','clerk',1500,'m');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into employee values('127',2,'kiran','manager',4000,'m');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> desc employee;
++--------+---------------+------+-----+---------+-------+
+| Field  | Type          | Null | Key | Default | Extra |
++--------+---------------+------+-----+---------+-------+
+| id     | char(5)       | YES  |     | NULL    |       |
+| deptid | decimal(2,0)  | YES  |     | NULL    |       |
+| name   | varchar(15)   | YES  |     | NULL    |       |
+| design | varchar(15)   | YES  |     | NULL    |       |
+| basic  | decimal(10,2) | YES  |     | NULL    |       |
+| gender | char(1)       | YES  |     | NULL    |       |
++--------+---------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+mysql> select distinct design from employee;
++---------+
+| design  |
++---------+
+| typist  |
+| analyst |
+| manager |
+| clerk   |
++---------+
+4 rows in set (0.00 sec)
+mysql> select count(distinct design)from employee;
++------------------------+
+| count(distinct design) |
++------------------------+
+|                      4 |
++------------------------+
+1 row in set (0.00 sec)
+mysql> select max(basic) from employee where gender='f';
++------------+
+| max(basic) |
++------------+
+|    6000.00 |
++------------+
+1 row in set (0.00 sec)
+mysql> select * from employee where gender='f' and design='typist';
++------+--------+------+--------+---------+--------+
+| id   | deptid | name | design | basic   | gender |
++------+--------+------+--------+---------+--------+
+| 121  |      1 | ruby | typist | 2010.00 | f      |
++------+--------+------+--------+---------+--------+
+1 row in set (0.01 sec)
+
+mysql> select * from employee where gender='m' and basic>3000 and design='clerk';
++------+--------+-------+--------+---------+--------+
+| id   | deptid | name  | design | basic   | gender |
++------+--------+-------+--------+---------+--------+
+| 132  |      3 | rayan | clerk  | 6050.00 | m      |
++------+--------+-------+--------+---------+--------+
+1 row in set (0.00 sec)
+mysql> select * from employee where design='manager' or design='analyst' and deptid=2;
++------+--------+---------+---------+---------+--------+
+| id   | deptid | name    | design  | basic   | gender |
++------+--------+---------+---------+---------+--------+
+| 102  |      2 | arun    | analyst | 6000.00 | m      |
+| 156  |      3 | mary    | manager | 4500.00 | f      |
+| 123  |      2 | mridula | analyst | 6000.00 | f      |
+| 127  |      2 | kiran   | manager | 4000.00 | m      |
++------+--------+---------+---------+---------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select design,basic from employee where name="ruby";
++--------+---------+
+| design | basic   |
++--------+---------+
+| typist | 2010.00 |
+| typist | 2010.00 |
++--------+---------+
+2 rows in set (0.00 sec)
+mysql> alter table employee add joiningdate date;
+Query OK, 0 rows affected (0.19 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++------+--------+---------+---------+---------+--------+-------------+
+| id   | deptid | name    | design  | basic   | gender | joiningdate |
++------+--------+---------+---------+---------+--------+-------------+
+| 101  |      1 | ram     | typist  | 2000.00 | m      | NULL        |
+| 102  |      2 | arun    | analyst | 6000.00 | m      | NULL        |
+| 121  |      1 | ruby    | typist  | 2010.00 | f      | NULL        |
+| 156  |      3 | mary    | manager | 4500.00 | f      | NULL        |
+| 123  |      2 | mridula | analyst | 6000.00 | f      | NULL        |
+| 114  |      4 | menon   | clerk   | 1500.00 | m      | NULL        |
+| 115  |      4 | tim     | clerk   | 1500.00 | m      | NULL        |
+| 127  |      2 | kiran   | manager | 4000.00 | m      | NULL        |
+| 121  |      1 | ruby    | typist  | 2010.00 | f      | NULL        |
+| 132  |      3 | rayan   | clerk   | 6050.00 | m      | NULL        |
++------+--------+---------+---------+---------+--------+-------------+
+10 rows in set (0.00 sec)
+mysql> update employee set joiningdate='2024-04-12' where id=101;
+Query OK, 1 row affected (0.06 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++------+--------+---------+---------+---------+--------+-------------+
+| id   | deptid | name    | design  | basic   | gender | joiningdate |
++------+--------+---------+---------+---------+--------+-------------+
+| 101  |      1 | ram     | typist  | 2000.00 | m      | 2024-04-12  |
+| 102  |      2 | arun    | analyst | 6000.00 | m      | NULL        |
+| 121  |      1 | ruby    | typist  | 2010.00 | f      | NULL        |
+| 156  |      3 | mary    | manager | 4500.00 | f      | NULL        |
+| 123  |      2 | mridula | analyst | 6000.00 | f      | NULL        |
+| 114  |      4 | menon   | clerk   | 1500.00 | m      | NULL        |
+| 115  |      4 | tim     | clerk   | 1500.00 | m      | NULL        |
+| 127  |      2 | kiran   | manager | 4000.00 | m      | NULL        |
+| 121  |      1 | ruby    | typist  | 2010.00 | f      | NULL        |
+| 132  |      3 | rayan   | clerk   | 6050.00 | m      | NULL        |
++------+--------+---------+---------+---------+--------+-------------+
+10 rows in set (0.00 sec)
+mysql> select * from employee order by joiningdate;
++------+--------+---------+---------+---------+--------+-------------+
+| id   | deptid | name    | design  | basic   | gender | joiningdate |
++------+--------+---------+---------+---------+--------+-------------+
+| 102  |      2 | arun    | analyst | 6000.00 | m      | NULL        |
+| 121  |      1 | ruby    | typist  | 2010.00 | f      | NULL        |
+| 156  |      3 | mary    | manager | 4500.00 | f      | NULL        |
+| 123  |      2 | mridula | analyst | 6000.00 | f      | NULL        |
+| 114  |      4 | menon   | clerk   | 1500.00 | m      | NULL        |
+| 115  |      4 | tim     | clerk   | 1500.00 | m      | NULL        |
+| 127  |      2 | kiran   | manager | 4000.00 | m      | NULL        |
+| 121  |      1 | ruby    | typist  | 2010.00 | f      | NULL        |
+| 132  |      3 | rayan   | clerk   | 6050.00 | m      | NULL        |
+| 101  |      1 | ram     | typist  | 2000.00 | m      | 2024-04-12  |
++------+--------+---------+---------+---------+--------+-------------+
+10 rows in set (0.00 sec)
+mysql> select * from employee order by basic desc;
++------+--------+---------+---------+---------+--------+-------------+
+| id   | deptid | name    | design  | basic   | gender | joiningdate |
++------+--------+---------+---------+---------+--------+-------------+
+| 132  |      3 | rayan   | clerk   | 6050.00 | m      | NULL        |
+| 102  |      2 | arun    | analyst | 6000.00 | m      | NULL        |
+| 123  |      2 | mridula | analyst | 6000.00 | f      | NULL        |
+| 156  |      3 | mary    | manager | 4500.00 | f      | NULL        |
+| 127  |      2 | kiran   | manager | 4000.00 | m      | NULL        |
+| 121  |      1 | ruby    | typist  | 2010.00 | f      | NULL        |
+| 121  |      1 | ruby    | typist  | 2010.00 | f      | NULL        |
+| 101  |      1 | ram     | typist  | 2000.00 | m      | 2024-04-12  |
+| 114  |      4 | menon   | clerk   | 1500.00 | m      | NULL        |
+| 115  |      4 | tim     | clerk   | 1500.00 | m      | NULL        |
++------+--------+---------+---------+---------+--------+-------------+
+10 rows in set (0.00 sec)
+
+mysql> create table department(deptid int primary key,dname char(15));
+Query OK, 0 rows affected (0.32 sec)
+
+mysql> desc department;
++--------+----------+------+-----+---------+-------+
+| Field  | Type     | Null | Key | Default | Extra |
++--------+----------+------+-----+---------+-------+
+| deptid | int      | NO   | PRI | NULL    |       |
+| dname  | char(15) | YES  |     | NULL    |       |
++--------+----------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+mysql> create table department(deptid int primary key,dname char(15));
+Query OK, 0 rows affected (0.32 sec)
+
+mysql> desc department;
++--------+----------+------+-----+---------+-------+
+| Field  | Type     | Null | Key | Default | Extra |
++--------+----------+------+-----+---------+-------+
+| deptid | int      | NO   | PRI | NULL    |       |
+| dname  | char(15) | YES  |     | NULL    |       |
++--------+----------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into department values(1,'design'),(2,'coding'),(3,'testing'),(4,'research'),(5,'maintain');
+Query OK, 5 rows affected (0.06 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from department;
++--------+----------+
+| deptid | dname    |
++--------+----------+
+|      1 | design   |
+|      2 | coding   |
+|      3 | testing  |
+|      4 | research |
+|      5 | maintain |
++--------+----------+
+mysql> alter table employee modify deptid int;
+Query OK, 10 rows affected (0.86 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> alter table employee add constraint fk_deptid FOREIGN KEY(deptid) REFERENCES department(deptid);
+Query OK, 10 rows affected (1.19 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> select employee.name as employeename,department.dname as departmentname from employee join department on employee.deptid=department.deptid;
++--------------+----------------+
+| employeename | departmentname |
++--------------+----------------+
+| ram          | design         |
+| ruby         | design         |
+| ruby         | design         |
+| arun         | coding         |
+| mridula      | coding         |
+| kiran        | coding         |
+| mary         | testing        |
+| rayan        | testing        |
+| menon        | research       |
+| tim          | research       |
++--------------+----------------+
+10 rows in set (0.00 sec)
+
+mysql> select department.dname as departmentname from employee join department on employee.deptid=department.deptid where employee.name='arun';
++----------------+
+| departmentname |
++----------------+
+| coding         |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select employee.basic as salary from employee join department on employee.deptid=department.deptid where department.dname='design';
++---------+
+| salary  |
++---------+
+| 2000.00 |
+| 2010.00 |
+| 2010.00 |
++---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employee join department on employee.deptid=department.deptid where employee.design='typist' and department.dname='design';
++------+--------+------+--------+---------+--------+-------------+--------+--------+
+| id   | deptid | name | design | basic   | gender | joiningdate | deptid | dname  |
++------+--------+------+--------+---------+--------+-------------+--------+--------+
+| 101  |      1 | ram  | typist | 2000.00 | m      | 2024-04-12  |      1 | design |
+| 121  |      1 | ruby | typist | 2010.00 | f      | NULL        |      1 | design |
+| 121  |      1 | ruby | typist | 2010.00 | f      | NULL        |      1 | design |
++------+--------+------+--------+---------+--------+-------------+--------+--------+
+3 rows in set (0.00 sec)
+mysql> select employee.basic from employee join department on employee.deptid=department.deptid where department.dname='research';
++---------+
+| basic   |
++---------+
+| 1500.00 |
+| 1500.00 |
++---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employee join department on employee.deptid=department.deptid where employee.gender='f' and department.dname='testing';
++------+--------+------+---------+---------+--------+-------------+--------+---------+
+| id   | deptid | name | design  | basic   | gender | joiningdate | deptid | dname   |
++------+--------+------+---------+---------+--------+-------------+--------+---------+
+| 156  |      3 | mary | manager | 4500.00 | f      | NULL        |      3 | testing |
++------+--------+------+---------+---------+--------+-------------+--------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee left join department on employee.deptid=department.deptid and department.dname in('coding','testing') where  department.deptid is null;
++------+--------+-------+--------+---------+--------+-------------+--------+-------+
+| id   | deptid | name  | design | basic   | gender | joiningdate | deptid | dname |
++------+--------+-------+--------+---------+--------+-------------+--------+-------+
+| 101  |      1 | ram   | typist | 2000.00 | m      | 2024-04-12  |   NULL | NULL  |
+| 121  |      1 | ruby  | typist | 2010.00 | f      | NULL        |   NULL | NULL  |
+| 114  |      4 | menon | clerk  | 1500.00 | m      | NULL        |   NULL | NULL  |
+| 115  |      4 | tim   | clerk  | 1500.00 | m      | NULL        |   NULL | NULL  |
+| 121  |      1 | ruby  | typist | 2010.00 | f      | NULL        |   NULL | NULL  |
++------+--------+-------+--------+---------+--------+-------------+--------+-------+
+5 rows in set (0.00 sec)
+mysql> SELECT d.dname FROM department d JOIN employee e ON d.deptid = e.deptid GROUP BY d.dname HAVING max(e.basic) = (SELECT MAX(basic) FROM employee);
++---------+
+| dname   |
++---------+
+| testing |
++---------+
+1 row in set (0.00 sec)
+
+mysql> SELECT d.dname FROM department d JOIN employee e ON d.deptid = e.deptid GROUP BY d.dname HAVING min(e.basic) = (SELECT MIN(basic) FROM employee);
++----------+
+| dname    |
++----------+
+| research |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select max(basic) as secondmaxsalary from employee where basic<(select max(basic) from employee);
++-----------------+
+| secondmaxsalary |
++-----------------+
+|         6000.00 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> select min(basic) as secondminsalary from employee where basic>(select min(basic) from employee);
++-----------------+
+| secondminsalary |
++-----------------+
+|         2000.00 |
++-----------------+
+1 row in set (0.00 sec)
+mysql> select employee.name from employee join department on employee.deptid=department.deptid where employee.basic>(select avg(basic) from employee where deptid=employee.deptid);
++---------+
+| name    |
++---------+
+| arun    |
+| mary    |
+| mridula |
+| kiran   |
+| rayan   |
++---------+
+5 rows in set (0.00 sec)
+mysql> alter table employee add managerid char(5);
+Query OK, 0 rows affected (0.22 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>  select * from employee;
++------+--------+---------+---------+---------+--------+-------------+-----------+
+| id   | deptid | name    | design  | basic   | gender | joiningdate | managerid |
++------+--------+---------+---------+---------+--------+-------------+-----------+
+| 101  |      1 | ram     | typist  | 2000.00 | m      | 2024-04-12  | NULL      |
+| 102  |      2 | arun    | analyst | 6000.00 | m      | NULL        | NULL      |
+| 121  |      1 | ruby    | typist  | 2010.00 | f      | NULL        | NULL      |
+| 156  |      3 | mary    | manager | 4500.00 | f      | NULL        | NULL      |
+| 123  |      2 | mridula | analyst | 6000.00 | f      | NULL        | NULL      |
+| 114  |      4 | menon   | clerk   | 1500.00 | m      | NULL        | NULL      |
+| 115  |      4 | tim     | clerk   | 1500.00 | m      | NULL        | NULL      |
+| 127  |      2 | kiran   | manager | 4000.00 | m      | NULL        | NULL      |
+| 121  |      1 | ruby    | typist  | 2010.00 | f      | NULL        | NULL      |
+| 132  |      3 | rayan   | clerk   | 6050.00 | m      | NULL        | NULL      |
++------+--------+---------+---------+---------+--------+-------------+-----------+
+10 rows in set (0.01 sec)
+
+mysql> update employee set managerid='NULL' where id='101';
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set managerid='101' where id in('102','121','156');
+Query OK, 4 rows affected (0.05 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+mysql> update employee set managerid='102' where id in('123','114','115');
+Query OK, 3 rows affected (0.05 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> select * from employee;
++------+--------+---------+---------+---------+--------+-------------+-----------+
+| id   | deptid | name    | design  | basic   | gender | joiningdate | managerid |
++------+--------+---------+---------+---------+--------+-------------+-----------+
+| 101  |      1 | ram     | typist  | 2000.00 | m      | 2024-04-12  | NULL      |
+| 102  |      2 | arun    | analyst | 6000.00 | m      | NULL        | 101       |
+| 121  |      1 | ruby    | typist  | 2010.00 | f      | NULL        | 101       |
+| 156  |      3 | mary    | manager | 4500.00 | f      | NULL        | 101       |
+| 123  |      2 | mridula | analyst | 6000.00 | f      | NULL        | 102       |
+| 114  |      4 | menon   | clerk   | 1500.00 | m      | NULL        | 102       |
+| 115  |      4 | tim     | clerk   | 1500.00 | m      | NULL        | 102       |
+| 127  |      2 | kiran   | manager | 4000.00 | m      | NULL        | NULL      |
+| 121  |      1 | ruby    | typist  | 2010.00 | f      | NULL        | 101       |
+| 132  |      3 | rayan   | clerk   | 6050.00 | m      | NULL        | NULL      |
++------+--------+---------+---------+---------+--------+-------------+-----------+
+10 rows in set (0.00 sec)
+
+mysql> select e1.name as employeename,e2.name as manager from employee e1 join employee e2 on e2.id=e1.managerid;
++--------------+---------+
+| employeename | manager |
++--------------+---------+
+| ruby         | ram     |
+| mary         | ram     |
+| ruby         | ram     |
+| arun         | ram     |
+| tim          | arun    |
+| menon        | arun    |
+| mridula      | arun    |
++--------------+---------+
+7 rows in set (0.00 sec)
+
+mysql> select employee.name from employee join employee as manager on employee.managerid=manager.employeeid where manager.name='ram';
+ERROR 1054 (42S22): Unknown column 'manager.employeeid' in 'on clause'
+mysql> select employee.name from employee join employee as manager on employee.managerid=manager.id where manager.name='ram';
++------+
+| name |
++------+
+| arun |
+| ruby |
+| mary |
+| ruby |
++------+
+4 rows in set (0.00 sec)
+
+mysql> 
+
+
+

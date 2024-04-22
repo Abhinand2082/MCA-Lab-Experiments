@@ -1,0 +1,382 @@
+mysql> use 23mca25
+Database changed
+mysql> create table tbl_staff(ID char(5),DeptID numeric(2),Name char(15),Design char(15),Basic numeric(10,2),Gender char(1));
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> desc tbl_staff;
++--------+---------------+------+-----+---------+-------+
+| Field  | Type          | Null | Key | Default | Extra |
++--------+---------------+------+-----+---------+-------+
+| ID     | char(5)       | YES  |     | NULL    |       |
+| DeptID | decimal(2,0)  | YES  |     | NULL    |       |
+| Name   | char(15)      | YES  |     | NULL    |       |
+| Design | char(15)      | YES  |     | NULL    |       |
+| Basic  | decimal(10,2) | YES  |     | NULL    |       |
+| Gender | char(1)       | YES  |     | NULL    |       |
++--------+---------------+------+-----+---------+-------+
+
+
+
+mysql> insert into tbl_staff value(101,1,'ram','typist',2000,'m'),(102,2,'arun','analyst',6000,'m'),(121,1,'Ruby','typist',2010,'f'),(156,3,'mary','manager',4500,'f'),(123,2,'mridula','analyst',6000,'f'),(114,4,'menon','clerk',1500,'m'),(115,4,'tim','clerk',1500,'m'),(127,2,'krian','manager',4000,'m');
+Query OK, 8 rows affected (0.01 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> select * from tbl_staff;
++------+--------+---------+---------+---------+--------+
+| ID   | DeptID | Name    | Design  | Basic   | Gender |
++------+--------+---------+---------+---------+--------+
+| 101  |      1 | ram     | typist  | 2000.00 | m      |
+| 102  |      2 | arun    | analyst | 6000.00 | m      |
+| 121  |      1 | Ruby    | typist  | 2010.00 | f      |
+| 156  |      3 | mary    | manager | 4500.00 | f      |
+| 123  |      2 | mridula | analyst | 6000.00 | f      |
+| 114  |      4 | menon   | clerk   | 1500.00 | m      |
+| 115  |      4 | tim     | clerk   | 1500.00 | m      |
+| 127  |      2 | krian   | manager | 4000.00 | m      |
++------+--------+---------+---------+---------+--------+
+8 rows in set (0.00 sec)
+
+mysql> select ID,Name,Design,Basic from tbl_staff;
++------+---------+---------+---------+
+| ID   | Name    | Design  | Basic   |
++------+---------+---------+---------+
+| 101  | ram     | typist  | 2000.00 |
+| 102  | arun    | analyst | 6000.00 |
+| 121  | Ruby    | typist  | 2010.00 |
+| 156  | mary    | manager | 4500.00 |
+| 123  | mridula | analyst | 6000.00 |
+| 114  | menon   | clerk   | 1500.00 |
+| 115  | tim     | clerk   | 1500.00 |
+| 127  | krian   | manager | 4000.00 |
++------+---------+---------+---------+
+8 rows in set (0.00 sec)
+
+mysql> select ID,Name from tbl_staff where DeptId=2;
++------+---------+
+| ID   | Name    |
++------+---------+
+| 102  | arun    |
+| 123  | mridula |
+| 127  | krian   |
++------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select ID,Name,Design as Designation,DeptID,Basic,(Basic*0.075) as DA,(Basic*0.10) as HIRA,(Basic+(Basic*0.075)+(Basic*0.10)) as Net_Sal from tbl_staff;
++------+---------+-------------+--------+---------+-----------+----------+------------+
+| ID   | Name    | Designation | DeptID | Basic   | DA        | HIRA     | Net_Sal    |
++------+---------+-------------+--------+---------+-----------+----------+------------+
+| 101  | ram     | typist      |      1 | 2000.00 | 150.00000 | 200.0000 | 2350.00000 |
+| 102  | arun    | analyst     |      2 | 6000.00 | 450.00000 | 600.0000 | 7050.00000 |
+| 121  | Ruby    | typist      |      1 | 2010.00 | 150.75000 | 201.0000 | 2361.75000 |
+| 156  | mary    | manager     |      3 | 4500.00 | 337.50000 | 450.0000 | 5287.50000 |
+| 123  | mridula | analyst     |      2 | 6000.00 | 450.00000 | 600.0000 | 7050.00000 |
+| 114  | menon   | clerk       |      4 | 1500.00 | 112.50000 | 150.0000 | 1762.50000 |
+| 115  | tim     | clerk       |      4 | 1500.00 | 112.50000 | 150.0000 | 1762.50000 |
+| 127  | krian   | manager     |      2 | 4000.00 | 300.00000 | 400.0000 | 4700.00000 |
++------+---------+-------------+--------+---------+-----------+----------+------------+
+8 rows in set (0.00 sec)
+
+mysql> select ID,Name,Design,Basic from tbl_staff order by Basic desc;
++------+---------+---------+---------+
+| ID   | Name    | Design  | Basic   |
++------+---------+---------+---------+
+| 102  | arun    | analyst | 6000.00 |
+| 123  | mridula | analyst | 6000.00 |
+| 156  | mary    | manager | 4500.00 |
+| 127  | krian   | manager | 4000.00 |
+| 121  | Ruby    | typist  | 2010.00 |
+| 101  | ram     | typist  | 2000.00 |
+| 114  | menon   | clerk   | 1500.00 |
+| 115  | tim     | clerk   | 1500.00 |
++------+---------+---------+---------+
+8 rows in set (0.00 sec)
+
+mysql> select ID,Name,Design as Designation,DeptID,Basic from tbl_staff where Design='typist';
++------+------+-------------+--------+---------+
+| ID   | Name | Designation | DeptID | Basic   |
++------+------+-------------+--------+---------+
+| 101  | ram  | typist      |      1 | 2000.00 |
+| 121  | Ruby | typist      |      1 | 2010.00 |
++------+------+-------------+--------+---------+
+2 rows in set (0.00 sec)
+
+
+mysql> select * from tbl_staff where Design in ('analyst','manager');
++------+--------+---------+---------+---------+--------+
+| ID   | DeptID | Name    | Design  | Basic   | Gender |
++------+--------+---------+---------+---------+--------+
+| 102  |      2 | arun    | analyst | 6000.00 | m      |
+| 156  |      3 | mary    | manager | 4500.00 | f      |
+| 123  |      2 | mridula | analyst | 6000.00 | f      |
+| 127  |      2 | krian   | manager | 4000.00 | m      |
++------+--------+---------+---------+---------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select distinct Design as Designation from tbl_staff;
++-------------+
+| Designation |
++-------------+
+| typist      |
+| analyst     |
+| manager     |
+| clerk       |
++-------------+
+4 rows in set (0.00 sec)
+
+mysql> select ID,Name,DeptID,Basic from tbl_staff where Design in ('manager','clerk') and Basic between 1400 and 4500;
++------+-------+--------+---------+
+| ID   | Name  | DeptID | Basic   |
++------+-------+--------+---------+
+| 156  | mary  |      3 | 4500.00 |
+| 114  | menon |      4 | 1500.00 |
+| 115  | tim   |      4 | 1500.00 |
+| 127  | krian |      2 | 4000.00 |
++------+-------+--------+---------+
+4 rows in set (0.00 sec)
+
+
+
+mysql> select count(*) as MaleCount from tbl_staff where Gender='m';
++-----------+
+| MaleCount |
++-----------+
+|         5 |
++-----------+
+1 row in set (0.01 sec)
+
+
+mysql> select Design as Designation,max(Basic) as MaxSalary from tbl_staff group by Design;
++-------------+-----------+
+| Designation | MaxSalary |
++-------------+-----------+
+| typist      |   2010.00 |
+| analyst     |   6000.00 |
+| manager     |   4500.00 |
+| clerk       |   1500.00 |
++-------------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> alter table tbl_staff add manager_id int;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> update tbl_staff set manager_id=NULL where ID in (101,121,156);
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 3  Changed: 0  Warnings: 0
+
+mysql> update tbl_staff set manager_id=102 where ID in (114,115);
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> update tbl_staff set manager_id=121 where ID=127;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select manager_id from tbl_staff where Name='ram';
++------------+
+| manager_id |
++------------+
+|       NULL |
++------------+
+1 row in set (0.00 sec)
+
+mysql> create table manager(manager_id char(5),m.name char(15));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.name char(15))' at line 1
+mysql> create table manager(manager_id char(5),m_name char(15));
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> desc manager;
++------------+----------+------+-----+---------+-------+
+| Field      | Type     | Null | Key | Default | Extra |
++------------+----------+------+-----+---------+-------+
+| manager_id | char(5)  | YES  |     | NULL    |       |
+| m_name     | char(15) | YES  |     | NULL    |       |
++------------+----------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from tbl_staff;
++------+--------+---------+---------+---------+--------+------------+
+| ID   | DeptID | Name    | Design  | Basic   | Gender | manager_id |
++------+--------+---------+---------+---------+--------+------------+
+| 101  |      1 | ram     | typist  | 2000.00 | m      |       NULL |
+| 102  |      2 | arun    | analyst | 6000.00 | m      |       NULL |
+| 121  |      1 | Ruby    | typist  | 2010.00 | f      |       NULL |
+| 156  |      3 | mary    | manager | 4500.00 | f      |       NULL |
+| 123  |      2 | mridula | analyst | 6000.00 | f      |       NULL |
+| 114  |      4 | menon   | clerk   | 1500.00 | m      |        102 |
+| 115  |      4 | tim     | clerk   | 1500.00 | m      |        102 |
+| 127  |      2 | krian   | manager | 4000.00 | m      |        121 |
++------+--------+---------+---------+---------+--------+------------+
+8 rows in set (0.00 sec)
+
+mysql> update tbl_staff set manager_id=101 where ID in (102,121,156);
+Query OK, 3 rows affected (0.03 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> select * from tbl_staff;
++------+--------+---------+---------+---------+--------+------------+
+| ID   | DeptID | Name    | Design  | Basic   | Gender | manager_id |
++------+--------+---------+---------+---------+--------+------------+
+| 101  |      1 | ram     | typist  | 2000.00 | m      |       NULL |
+| 102  |      2 | arun    | analyst | 6000.00 | m      |        101 |
+| 121  |      1 | Ruby    | typist  | 2010.00 | f      |        101 |
+| 156  |      3 | mary    | manager | 4500.00 | f      |        101 |
+| 123  |      2 | mridula | analyst | 6000.00 | f      |       NULL |
+| 114  |      4 | menon   | clerk   | 1500.00 | m      |        102 |
+| 115  |      4 | tim     | clerk   | 1500.00 | m      |        102 |
+| 127  |      2 | krian   | manager | 4000.00 | m      |        121 |
++------+--------+---------+---------+---------+--------+------------+
+8 rows in set (0.00 sec)
+
+mysql> update tbl_staff set manager_id=102 where ID in (123,114,115);
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 3  Changed: 1  Warnings: 0
+
+mysql> update tbl_staff set manager_id=121 where ID=127;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> select * from tbl_staff;
++------+--------+---------+---------+---------+--------+------------+
+| ID   | DeptID | Name    | Design  | Basic   | Gender | manager_id |
++------+--------+---------+---------+---------+--------+------------+
+| 101  |      1 | ram     | typist  | 2000.00 | m      |       NULL |
+| 102  |      2 | arun    | analyst | 6000.00 | m      |        101 |
+| 121  |      1 | Ruby    | typist  | 2010.00 | f      |        101 |
+| 156  |      3 | mary    | manager | 4500.00 | f      |        101 |
+| 123  |      2 | mridula | analyst | 6000.00 | f      |        102 |
+| 114  |      4 | menon   | clerk   | 1500.00 | m      |        102 |
+| 115  |      4 | tim     | clerk   | 1500.00 | m      |        102 |
+| 127  |      2 | krian   | manager | 4000.00 | m      |        121 |
++------+--------+---------+---------+---------+--------+------------+
+8 rows in set (0.00 sec)
+
+mysql> update tbl_staff set manager_id=127 where ID=121;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from tbl_staff;
++------+--------+---------+---------+---------+--------+------------+
+| ID   | DeptID | Name    | Design  | Basic   | Gender | manager_id |
++------+--------+---------+---------+---------+--------+------------+
+| 101  |      1 | ram     | typist  | 2000.00 | m      |       NULL |
+| 102  |      2 | arun    | analyst | 6000.00 | m      |        101 |
+| 121  |      1 | Ruby    | typist  | 2010.00 | f      |        127 |
+| 156  |      3 | mary    | manager | 4500.00 | f      |        101 |
+| 123  |      2 | mridula | analyst | 6000.00 | f      |        102 |
+| 114  |      4 | menon   | clerk   | 1500.00 | m      |        102 |
+| 115  |      4 | tim     | clerk   | 1500.00 | m      |        102 |
+| 127  |      2 | krian   | manager | 4000.00 | m      |        121 |
++------+--------+---------+---------+---------+--------+------------+
+8 rows in set (0.00 sec)
+
+mysql> insert into manager value(101,'shibu_mon'),(102,'hadi'),(121,'allen'),(127,'thankan');
+Query OK, 4 rows affected (0.00 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from manager;
++------------+-----------+
+| manager_id | m_name    |
++------------+-----------+
+| 101        | shibu_mon |
+| 102        | hadi      |
+| 121        | allen     |
+| 127        | thankan   |
++------------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> insert into manager value(NULL,'NULL');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from manager;
++------------+-----------+
+| manager_id | m_name    |
++------------+-----------+
+| 101        | shibu_mon |
+| 102        | hadi      |
+| 121        | allen     |
+| 127        | thankan   |
+| NULL       | NULL      |
++------------+-----------+
+5 rows in set (0.00 sec)
+
+
+mysql> select DeptID,AVG(Basic) as Average_salary from tbl_staff group by DeptID;
++--------+----------------+
+| DeptID | Average_salary |
++--------+----------------+
+|      1 |    2005.000000 |
+|      2 |    5333.333333 |
+|      3 |    4500.000000 |
+|      4 |    1500.000000 |
++--------+----------------+
+4 rows in set (0.01 sec)
+
+mysql> selct max(basic) as MaxSalary from tbl_staff;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'selct max(basic) as MaxSalary from tbl_staff' at line 1
+mysql> select max(basic) as MaxSalary from tbl_staff;
++-----------+
+| MaxSalary |
++-----------+
+|   6000.00 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select DeptID,count(*) as EmployeeCount from tbl_staff group by DeptID;
++--------+---------------+
+| DeptID | EmployeeCount |
++--------+---------------+
+|      1 |             2 |
+|      2 |             3 |
+|      3 |             1 |
+|      4 |             2 |
++--------+---------------+
+4 rows in set (0.00 sec)
+
+mysql> select count(distinct DeptID) from tbl_staff;
++------------------------+
+| count(distinct DeptID) |
++------------------------+
+|                      4 |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> select count(DeptID) from tbl_staff;
++---------------+
+| count(DeptID) |
++---------------+
+|             8 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select distinct DeptID count(*) from tbl_staff;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'count(*) from tbl_staff' at line 1
+mysql> select (distinct DeptID) as departments from tbl_staff;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'distinct DeptID) as departments from tbl_staff' at line 1
+mysql> select (distinct DeptID) from tbl_staff;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'distinct DeptID) from tbl_staff' at line 1
+mysql> select count(distinct DeptID) as departments from tbl_staff;
++-------------+
+| departments |
++-------------+
+|           4 |
++-------------+
+1 row in set (0.00 sec)
+
+
+
+mysql> select e.Name as Employee_Name,m.name as Manager_Name from tbl_staff e left join tbl_staff m on m.ID=e.manager_id;
++---------------+--------------+
+| Employee_Name | Manager_Name |
++---------------+--------------+
+| ram           | NULL         |
+| arun          | ram          |
+| Ruby          | krian        |
+| mary          | ram          |
+| mridula       | arun         |
+| menon         | arun         |
+| tim           | arun         |
+| krian         | Ruby         |
++---------------+--------------+
+8 rows in set (0.00 sec)
+
