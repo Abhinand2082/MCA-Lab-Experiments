@@ -1,0 +1,193 @@
+mysql> create table student (roll_no int(8),Name varchar(25),DOB date,Address text,Phone_no varchar(10),Blood_grp varchar);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> create table student (roll_no int(8),Name varchar(25),DOB date,Address text,Phone_no varchar(10),Blood_grp varchar(5));
+Query OK, 0 rows affected, 1 warning (0.12 sec)
+
+mysql> create table course(course_id int(5),course_name varchar(25),course_duration int(5));
+Query OK, 0 rows affected, 2 warnings (0.06 sec)
+
+mysql> show tables;
++-------------------+
+| Tables_in_23mca35 |
++-------------------+
+| course            |
+| employee          |
+| student           |
++-------------------+
+3 rows in set (0.00 sec)
+
+mysql> desc student;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| roll_no   | int         | YES  |     | NULL    |       |
+| Name      | varchar(25) | YES  |     | NULL    |       |
+| DOB       | date        | YES  |     | NULL    |       |
+| Address   | text        | YES  |     | NULL    |       |
+| Phone_no  | varchar(10) | YES  |     | NULL    |       |
+| Blood_grp | varchar(5)  | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+6
+
+
+mysql> alter table student drop column Blood_grp;
+
+mysql> desc student;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| roll_no  | int         | YES  |     | NULL    |       |
+| Name     | varchar(25) | YES  |     | NULL    |       |
+| DOB      | date        | YES  |     | NULL    |       |
+| Address  | text        | YES  |     | NULL    |       |
+| Phone_no | varchar(10) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
+
+7
+
+
+
+mysql> alter table student add column Adar_no int;
+
+mysql> desc student;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| roll_no  | int         | YES  |     | NULL    |       |
+| Name     | varchar(25) | YES  |     | NULL    |       |
+| DOB      | date        | YES  |     | NULL    |       |
+| Address  | text        | YES  |     | NULL    |       |
+| Phone_no | varchar(10) | YES  |     | NULL    |       |
+| Adar_no  | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
+
+8
+
+mysql> alter table student modify phone_no int;
+
+
+mysql> desc student;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| roll_no  | int         | YES  |     | NULL    |       |
+| Name     | varchar(25) | YES  |     | NULL    |       |
+| DOB      | date        | YES  |     | NULL    |       |
+| Address  | text        | YES  |     | NULL    |       |
+| phone_no | int         | YES  |     | NULL    |       |
+| Adar_no  | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
+
+mysql> create table Department(dept_no varchar(5),dep_name varchar(20),location varchar(50));
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> show tables;
++-------------------+
+| Tables_in_23mca35 |
++-------------------+
+| Department        |
+| Employees         |
+| course            |
+| employee          |
++-------------------+
+4 rows in set (0.01 sec)
+
+mysql> desc Employees;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| emp_no   | varchar(5)  | YES  |     | NULL    |       |
+| emp_name | varchar(25) | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
+| Address  | text        | YES  |     | NULL    |       |
+| mob_no   | int         | YES  |     | NULL    |       |
+| dep_no   | varchar(5)  | YES  |     | NULL    |       |
+| salary   | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+
+mysql> desc Department;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| dept_no  | varchar(5)  | YES  |     | NULL    |       |
+| dep_name | varchar(20) | YES  |     | NULL    |       |
+| location | varchar(50) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table Employees add column Designation;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> alter table Employees add column Designation varchar(20));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> alter table Employees add column Designation varchar(20);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc Employees;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| emp_no      | varchar(5)  | YES  |     | NULL    |       |
+| emp_name    | varchar(25) | YES  |     | NULL    |       |
+| dob         | date        | YES  |     | NULL    |       |
+| Address     | text        | YES  |     | NULL    |       |
+| mob_no      | int         | YES  |     | NULL    |       |
+| dep_no      | varchar(5)  | YES  |     | NULL    |       |
+| salary      | int         | YES  |     | NULL    |       |
+| Designation | varchar(20) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> alter table Department drop column location;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc Department;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| dept_no  | varchar(5)  | YES  |     | NULL    |       |
+| dep_name | varchar(20) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+
+3
+
+1
+
+mysql> create table persons(person_id int primary key,Name varchar(10) NOT NULL, Aadhar int NOT NULL unique,Age int check(Age>18));
+Query OK, 0 rows affected (0.29 sec)
+
+mysql> desc persons;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| person_id | int         | NO   | PRI | NULL    |       |
+| Name      | varchar(10) | NO   |     | NULL    |       |
+| Aadhar    | int         | NO   | UNI | NULL    |       |
+| Age       | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+
+mysql> create table orders(order_id int primary key,order_number varchar(50) not null,person_id int, foreign key(person_id) references persons(person_id));
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> desc orders;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| order_id     | int         | NO   | PRI | NULL    |       |
+| order_number | varchar(50) | NO   |     | NULL    |       |
+| person_id    | int         | YES  | MUL | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+

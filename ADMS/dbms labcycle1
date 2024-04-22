@@ -1,0 +1,267 @@
+1
+
+
+describe employee;
++-------------+---------------+------+-----+---------+-------+
+| Field       | Type          | Null | Key | Default | Extra |
++-------------+---------------+------+-----+---------+-------+
+| ID          | varchar(5)    | YES  |     | NULL    |       |
+| DepID       | int           | YES  |     | NULL    |       |
+| Name        | varchar(15)   | YES  |     | NULL    |       |
+| Designation | varchar(15)   | YES  |     | NULL    |       |
+| Basic       | decimal(10,2) | YES  |     | NULL    |       |
+| Gender      | varchar(1)    | YES  |     | NULL    |       |
++-------------+---------------+------+-----+---------+-------+
+
+
+2
+
+select * from employee;
++------+-------+---------+-------------+---------+--------+
+| ID   | DepID | Name    | Designation | Basic   | Gender |
++------+-------+---------+-------------+---------+--------+
+| 101  |     1 | Ram     | Typist      | 2000.00 | M      |
+| 102  |     2 | Arun    | Analyst     | 6000.00 | M      |
+| 121  |     1 | Ruby    | Typist      | 2010.00 | F      |
+| 156  |     3 | Marry   | Manager     | 4500.00 | F      |
+| 123  |     2 | Mridula | Analyst     | 6000.00 | F      |
+| 114  |     4 | Menon   | clerk       | 1500.00 | M      |
+| 115  |     4 | Tim     | clerk       | 1500.00 | M      |
+| 115  |     2 | kiran   | Manager     | 4000.00 | M      |
++------+-------+---------+-------------+---------+--------+
+
+
+3
+
+mysql> select ID,Name,Designation,Basic from employee;
++------+---------+-------------+---------+
+| ID   | Name    | Designation | Basic   |
++------+---------+-------------+---------+
+| 101  | Ram     | Typist      | 2000.00 |
+| 102  | Arun    | Analyst     | 6000.00 |
+| 121  | Ruby    | Typist      | 2010.00 |
+| 156  | Marry   | Manager     | 4500.00 |
+| 123  | Mridula | Analyst     | 6000.00 |
+| 114  | Menon   | clerk       | 1500.00 |
+| 115  | Tim     | clerk       | 1500.00 |
+| 115  | kiran   | Manager     | 4000.00 |
++------+---------+-------------+---------+
+
+
+4
+
+
+mysql> select ID,Name from employee where DepID=2;
++------+---------+
+| ID   | Name    |
++------+---------+
+| 102  | Arun    |
+| 123  | Mridula |
+| 115  | kiran   |
++------+---------+
+
+
+
+5
+
+mysql> select ID,Designation,DepID,Basic,Basic * 0.075 as DA,Basic * 0.10 as HRA,basic+((basic*0.075)+(basic*0.10))as Net_Sal from employee;
++------+-------------+-------+---------+-----------+----------+------------+
+| ID   | Designation | DepID | Basic   | DA        | HRA      | Net_Sal    |
++------+-------------+-------+---------+-----------+----------+------------+
+| 101  | Typist      |     1 | 2000.00 | 150.00000 | 200.0000 | 2350.00000 |
+| 102  | Analyst     |     2 | 6000.00 | 450.00000 | 600.0000 | 7050.00000 |
+| 121  | Typist      |     1 | 2010.00 | 150.75000 | 201.0000 | 2361.75000 |
+| 156  | Manager     |     3 | 4500.00 | 337.50000 | 450.0000 | 5287.50000 |
+| 123  | Analyst     |     2 | 6000.00 | 450.00000 | 600.0000 | 7050.00000 |
+| 114  | clerk       |     4 | 1500.00 | 112.50000 | 150.0000 | 1762.50000 |
+| 115  | clerk       |     4 | 1500.00 | 112.50000 | 150.0000 | 1762.50000 |
+| 115  | Manager     |     2 | 4000.00 | 300.00000 | 400.0000 | 4700.00000 |
++------+-------------+-------+---------+-----------+----------+------------+
+
+
+6
+
+
+mysql> select id,name,designation,depid,basic from employee order by basic desc;
++------+---------+-------------+-------+---------+
+| id   | name    | designation | depid | basic   |
++------+---------+-------------+-------+---------+
+| 102  | Arun    | Analyst     |     2 | 6000.00 |
+| 123  | Mridula | Analyst     |     2 | 6000.00 |
+| 156  | Marry   | Manager     |     3 | 4500.00 |
+| 115  | kiran   | Manager     |     2 | 4000.00 |
+| 121  | Ruby    | Typist      |     1 | 2010.00 |
+| 101  | Ram     | Typist      |     1 | 2000.00 |
+| 114  | Menon   | clerk       |     4 | 1500.00 |
+| 115  | Tim     | clerk       |     4 | 1500.00 |
++------+---------+-------------+-------+---------+
+
+
+7
+
+
+mysql> select * from employee where designation='typist';
++------+-------+------+-------------+---------+--------+
+| ID   | DepID | Name | Designation | Basic   | Gender |
++------+-------+------+-------------+---------+--------+
+| 101  |     1 | Ram  | Typist      | 2000.00 | M      |
+| 121  |     1 | Ruby | Typist      | 2010.00 | F      |
++------+-------+------+-------------+---------+--------+
+
+
+8
+
+mysql> select * from employee where designation='analyst' or designation='manager';
++------+-------+---------+-------------+---------+--------+
+| ID   | DepID | Name    | Designation | Basic   | Gender |
++------+-------+---------+-------------+---------+--------+
+| 102  |     2 | Arun    | Analyst     | 6000.00 | M      |
+| 156  |     3 | Marry   | Manager     | 4500.00 | F      |
+| 123  |     2 | Mridula | Analyst     | 6000.00 | F      |
+| 115  |     2 | kiran   | Manager     | 4000.00 | M      |
++------+-------+---------+-------------+---------+--------+
+
+
+9
+
+
+mysql> select distinct designation from employee;
++-------------+
+| designation |
++-------------+
+| Typist      |
+| Analyst     |
+| Manager     |
+| clerk       |
++-------------+
+
+
+10
+
+mysql> select ID,Name,DepID,Basic from employee where designation='manager' or designation='clerk' and basic between 1400 and 4500;
++------+-------+-------+---------+
+| ID   | Name  | DepID | Basic   |
++------+-------+-------+---------+
+| 156  | Marry |     3 | 4500.00 |
+| 114  | Menon |     4 | 1500.00 |
+| 115  | Tim   |     4 | 1500.00 |
+| 115  | kiran |     2 | 4000.00 |
++------+-------+-------+---------+
+
+
+11
+
+mysql> select count(*) AS male_staff_members from employee where gender='M';
++--------------------+
+| male_staff_members |
++--------------------+
+|                  5 |
++--------------------+
+
+
+12
+
+mysql> select max(basic) as max_sal from employee group by designation;
++---------+
+| max_sal |
++---------+
+| 2010.00 |
+| 6000.00 |
+| 4500.00 |
+| 1500.00 |
++---------+
+
+
+13
+
+mysql> alter table employee add manager_id int(5);
+Query OK, 0 rows affected, 1 warning (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> select * from employee;
++------+-------+---------+-------------+---------+--------+------------+
+| ID   | DepID | Name    | Designation | Basic   | Gender | manager_id |
++------+-------+---------+-------------+---------+--------+------------+
+| 101  |     1 | Ram     | Typist      | 2000.00 | M      |       NULL |
+| 102  |     2 | Arun    | Analyst     | 6000.00 | M      |       NULL |
+| 121  |     1 | Ruby    | Typist      | 2010.00 | F      |       NULL |
+| 156  |     3 | Marry   | Manager     | 4500.00 | F      |       NULL |
+| 123  |     2 | Mridula | Analyst     | 6000.00 | F      |       NULL |
+| 114  |     4 | Menon   | clerk       | 1500.00 | M      |       NULL |
+| 115  |     4 | Tim     | clerk       | 1500.00 | M      |       NULL |
+| 115  |     2 | kiran   | Manager     | 4000.00 | M      |       NULL |
++------+-------+---------+-------------+---------+--------+------------+
+
+
+14
+
+15
+
+select manager_id from employee where name='ram';
++------------+
+| manager_id |
++------------+
+|       NULL |
++------------+
+
+
+16
+
+mysql> select e.Name As employee_name,m.Name AS manager_name from employee e LEFT JOIN employee m ON e.manager_id=m.id;
++---------------+--------------+
+| employee_name | manager_name |
++---------------+--------------+
+| Ram           | NULL         |
+| Arun          | Ram          |
+| Ruby          | Arun         |
+| Marry         | Ram          |
+| Mridula       | Arun         |
+| Menon         | Arun         |
+| Tim           | Arun         |
+| kiran         | Arun         |
++---------------+--------------+
+8 rows in set (0.01 sec)
+
+
+
+mysql> select name,manager_id from employee;
++---------+------------+
+| name    | manager_id |
++---------+------------+
+| Ram     |       NULL |
+| Arun    |        101 |
+| Ruby    |        102 |
+| Marry   |        101 |
+| Mridula |        102 |
+| Menon   |        102 |
+| Tim     |        102 |
+| kiran   |        102 |
++---------+------------+
+
+
+17
+
+mysql> select avg(basic) as avg_sal from employee group by depid;
++-------------+
+| avg_sal     |
++-------------+
+| 2005.000000 |
+| 5333.333333 |
+| 4500.000000 |
+| 1500.000000 |
++-------------+
+
+
+18
+
+mysql> select max(basic) from employee;
++------------+
+| max(basic) |
++------------+
+|    6000.00 |
++------------+
+
+
+19
+
+

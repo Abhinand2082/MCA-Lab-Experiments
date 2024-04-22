@@ -1,0 +1,111 @@
+create table persons(person_id int primary key,Name varchar(10) NOT NULL, Aadhar int NOT NULL unique,Age int check(Age>18));
+Query OK, 0 rows affected (0.39 sec)
+
+mysql> desc persons;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| person_id | int         | NO   | PRI | NULL    |       |
+| Name      | varchar(10) | NO   |     | NULL    |       |
+| Aadhar    | int         | NO   | UNI | NULL    |       |
+| Age       | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> create table orders(order_id int primary key,order_number varchar(50) not null,person_id int, foreign key(person_id) references persons(person_id));
+Query OK, 0 rows affected (0.63 sec)
+
+mysql> desc orders;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| order_id     | int         | NO   | PRI | NULL    |       |
+| order_number | varchar(50) | NO   |     | NULL    |       |
+| person_id    | int         | YES  | MUL | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> create table employee(emp_no varchar(5),emp_name varchar(25),dob date,address text,mob_no int(10),dep_no varchar(5),salary int(6));
+Query OK, 0 rows affected, 2 warnings (0.30 sec)
+
+mysql> Alter table employee add primary key(emp_no);
+Query OK, 0 rows affected (0.55 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| emp_no   | varchar(5)  | NO   | PRI | NULL    |       |
+| emp_name | varchar(25) | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
+| address  | text        | YES  |     | NULL    |       |
+| mob_no   | int         | YES  |     | NULL    |       |
+| dep_no   | varchar(5)  | YES  |     | NULL    |       |
+| salary   | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+
+mysql> create table Department(dept_no varchar(5),dep_name varchar(20),location varchar(50));
+Query OK, 0 rows affected (0.34 sec)
+
+mysql> desc Department;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| dept_no  | varchar(5)  | YES  |     | NULL    |       |
+| dep_name | varchar(20) | YES  |     | NULL    |       |
+| location | varchar(50) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table Department add primary key(dept_no);
+Query OK, 0 rows affected (0.79 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc Department;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| dept_no  | varchar(5)  | NO   | PRI | NULL    |       |
+| dep_name | varchar(20) | YES  |     | NULL    |       |
+| location | varchar(50) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table employee add constraint dept_no foreign key(dept_no)references department(dept_no) on delete cascade;
+ERROR 1072 (42000): Key column 'dept_no' doesn't exist in table
+mysql> alter table employee add constraint fk_Department foreign key(dep_no)references Department(dep_no) on delete cascade;
+ERROR 3734 (HY000): Failed to add the foreign key constraint. Missing column 'dep_no' for constraint 'fk_Department' in the referenced table 'Department'
+mysql> alter table employee add constraint fk_Department foreign key(dep_no)references Department(dept_no) on delete cascade;
+Query OK, 0 rows affected (0.89 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| emp_no   | varchar(5)  | NO   | PRI | NULL    |       |
+| emp_name | varchar(25) | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
+| address  | text        | YES  |     | NULL    |       |
+| mob_no   | int         | YES  |     | NULL    |       |
+| dep_no   | varchar(5)  | YES  | MUL | NULL    |       |
+| salary   | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+
+mysql> alter table orders drop primary key;
+Query OK, 0 rows affected (1.35 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc orders;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| order_id     | int         | NO   |     | NULL    |       |
+| order_number | varchar(50) | NO   |     | NULL    |       |
+| person_id    | int         | YES  | MUL | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+

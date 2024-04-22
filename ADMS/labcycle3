@@ -1,0 +1,170 @@
+mysql> select * from Employee1;
++------+--------+---------+-------------+---------+--------+
+| ID   | deptID | name    | designation | basic   | gender |
++------+--------+---------+-------------+---------+--------+
+| 101  |      1 | ram     | typist      | 2000.00 | M      |
+| 102  |      2 | arun    | analyst     | 6000.00 | M      |
+| 121  |      1 | ruby    | typist      | 2010.00 | F      |
+| 156  |      3 | mery    | manager     | 4500.00 | F      |
+| 123  |      2 | mridula | analyst     | 6000.00 | F      |
+| 114  |      4 | menon   | clerk       | 1500.00 | M      |
+| 115  |      4 | tim     | clerk       | 1500.00 | M      |
+| 127  |      2 | kiran   | manager     | 4000.00 | M      |
++------+--------+---------+-------------+---------+--------+
+8 rows in set (0.00 sec)
+
+mysql> select distinct designation from Employee1;
++-------------+
+| designation |
++-------------+
+| typist      |
+| analyst     |
+| manager     |
+| clerk       |
++-------------+
+4 rows in set (0.00 sec)
+
+mysql> select count(designation) from Employee;
+ERROR 1146 (42S02): Table '23mca35.Employee' doesn't exist
+mysql> select count(designation) from Employee1;
++--------------------+
+| count(designation) |
++--------------------+
+|                  8 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select count(distinct designation) from Employee1;
++-----------------------------+
+| count(distinct designation) |
++-----------------------------+
+|                           4 |
++-----------------------------+
+1 row in set (0.00 sec)
+
+mysql> select max(salary)from Employee1 where gender='F';
+ERROR 1054 (42S22): Unknown column 'salary' in 'field list'
+mysql> select max(basic)from Employee1 where gender='F';
++------------+
+| max(basic) |
++------------+
+|    6000.00 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select * from Employee1 where gender='F' and designation='Typist';
++------+--------+------+-------------+---------+--------+
+| ID   | deptID | name | designation | basic   | gender |
++------+--------+------+-------------+---------+--------+
+| 121  |      1 | ruby | typist      | 2010.00 | F      |
++------+--------+------+-------------+---------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from Employee1 where gender='M' and designation='clerk' and basic>3000;
+Empty set (0.00 sec)
+
+mysql> select * from Employee1 where(designation='manager' or designation='analyst')and deptID=2;
++------+--------+---------+-------------+---------+--------+
+| ID   | deptID | name    | designation | basic   | gender |
++------+--------+---------+-------------+---------+--------+
+| 102  |      2 | arun    | analyst     | 6000.00 | M      |
+| 123  |      2 | mridula | analyst     | 6000.00 | F      |
+| 127  |      2 | kiran   | manager     | 4000.00 | M      |
++------+--------+---------+-------------+---------+--------+
+3 rows in set (0.00 sec)
+
+mysql> alter table Employee1 add column joining_date date;
+Query OK, 0 rows affected (0.29 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc Employee1;
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| ID           | char(5)       | YES  |     | NULL    |       |
+| deptID       | decimal(2,0)  | YES  |     | NULL    |       |
+| name         | varchar(15)   | YES  |     | NULL    |       |
+| designation  | varchar(15)   | YES  |     | NULL    |       |
+| basic        | decimal(10,2) | YES  |     | NULL    |       |
+| gender       | char(1)       | YES  |     | NULL    |       |
+| joining_date | date          | YES  |     | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+
+mysql> select designation,basic from Employee1 where name='ruby';
++-------------+---------+
+| designation | basic   |
++-------------+---------+
+| typist      | 2010.00 |
++-------------+---------+
+1 row in set (0.00 sec)
+
+
+
+update Employee1 set joining_date='2024-03-04' where desination='manager';
+ERROR 1054 (42S22): Unknown column 'desination' in 'where clause'
+mysql> update Employee1 set joining_date='2024-03-04' where designation='manager';
+Query OK, 2 rows affected (0.05 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> update Employee1 set joining_date='2023-05-04' where designation='clerk';
+Query OK, 2 rows affected (0.05 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> update Employee1 set joining_date='2023-08-11' where designation='typist';
+Query OK, 2 rows affected (0.05 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> update Employee1 set joining_date='2024-08-12' where designation='analyst';
+Query OK, 2 rows affected (0.06 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from Employee1;
++------+--------+---------+-------------+---------+--------+--------------+
+| ID   | deptID | name    | designation | basic   | gender | joining_date |
++------+--------+---------+-------------+---------+--------+--------------+
+| 101  |      1 | ram     | typist      | 2000.00 | M      | 2023-08-11   |
+| 102  |      2 | arun    | analyst     | 6000.00 | M      | 2024-08-12   |
+| 121  |      1 | ruby    | typist      | 2010.00 | F      | 2023-08-11   |
+| 156  |      3 | mery    | manager     | 4500.00 | F      | 2024-03-04   |
+| 123  |      2 | mridula | analyst     | 6000.00 | F      | 2024-08-12   |
+| 114  |      4 | menon   | clerk       | 1500.00 | M      | 2023-05-04   |
+| 115  |      4 | tim     | clerk       | 1500.00 | M      | 2023-05-04   |
+| 127  |      2 | kiran   | manager     | 4000.00 | M      | 2024-03-04   |
++------+--------+---------+-------------+---------+--------+--------------+
+8 rows in set (0.00 sec)
+
+
+mysql> select * from Employee1 order by joining_date;
++------+--------+---------+-------------+---------+--------+--------------+
+| ID   | deptID | name    | designation | basic   | gender | joining_date |
++------+--------+---------+-------------+---------+--------+--------------+
+| 114  |      4 | menon   | clerk       | 1500.00 | M      | 2023-05-04   |
+| 115  |      4 | tim     | clerk       | 1500.00 | M      | 2023-05-04   |
+| 101  |      1 | ram     | typist      | 2000.00 | M      | 2023-08-11   |
+| 121  |      1 | ruby    | typist      | 2010.00 | F      | 2023-08-11   |
+| 156  |      3 | mery    | manager     | 4500.00 | F      | 2024-03-04   |
+| 127  |      2 | kiran   | manager     | 4000.00 | M      | 2024-03-04   |
+| 102  |      2 | arun    | analyst     | 6000.00 | M      | 2024-08-12   |
+| 123  |      2 | mridula | analyst     | 6000.00 | F      | 2024-08-12   |
++------+--------+---------+-------------+---------+--------+--------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from Employee1 order by basic desc;
++------+--------+---------+-------------+---------+--------+--------------+
+| ID   | deptID | name    | designation | basic   | gender | joining_date |
++------+--------+---------+-------------+---------+--------+--------------+
+| 102  |      2 | arun    | analyst     | 6000.00 | M      | 2024-08-12   |
+| 123  |      2 | mridula | analyst     | 6000.00 | F      | 2024-08-12   |
+| 156  |      3 | mery    | manager     | 4500.00 | F      | 2024-03-04   |
+| 127  |      2 | kiran   | manager     | 4000.00 | M      | 2024-03-04   |
+| 121  |      1 | ruby    | typist      | 2010.00 | F      | 2023-08-11   |
+| 101  |      1 | ram     | typist      | 2000.00 | M      | 2023-08-11   |
+| 114  |      4 | menon   | clerk       | 1500.00 | M      | 2023-05-04   |
+| 115  |      4 | tim     | clerk       | 1500.00 | M      | 2023-05-04   |
++------+--------+---------+-------------+---------+--------+--------------+
+8 rows in set (0.00 sec)
+
+mysql> 
+
